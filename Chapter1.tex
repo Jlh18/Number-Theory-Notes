@@ -1,0 +1,438 @@
+\chapter{Finite Fields}
+\section{Generalities}
+\subsection{Finite fields}
+\begin{dfn}[Characteristic of a field]
+    If $K$ is a field then the map $\Z \to K$ induced by $1 \mapsto 1$
+    is a ring morphism.
+    The image of this morphism is an integral domain since $K$ is a field,
+    hence the kernel is a prime ideal. 
+    Since $\Z$ is a PID, 
+    we can define the characteristic of $K$, denoted
+    $\Char{K}$ to be the positive generator of the kernel.
+\end{dfn}
+
+\begin{prop}[Frobenius map]
+    \link{frobenius}
+    If $K$ is a field and $\Char{K}$ is prime then 
+    \[\si_p : K \to K \quad := \quad x \mapsto x^p\]
+    is an injection.
+\end{prop}
+\begin{proof}
+    Easy to show $\si_p(0) = 0, \Si_p (1) = 1$. 
+    Also
+    \[\si_p (ab) = (ab)^p = a^p b^p = \si_p(a) \si_p(b)\]
+    \[\si_p (a +b) = (a + b)^p = a^p + b^p = \si(a) + \si(b)\]
+    by expanding the binomial and noting that when $1 \le k \le p$, 
+    $ p \mid \binom{p}{k} k! (p-k)!$ and is coprime to the latter two,
+    thus $p \mid \binom{p}{k}$.
+    Since $\si_p$ is a morphism of fields it is injective.
+\end{proof}
+
+\begin{prop}[Classification of finite fields]
+    Let $K$ be a finite field and 
+    suppose $\Om \models \mathrm{ACF_p}$ where $p$ is prime
+    and $q$ is a non-trivial power of $p$.
+    Then 
+    \begin{enumerate}
+        \item $\Char{K} \ne 0$ and $\abs{K} = p^{[K : \F_p]}$
+        \item $\F_q := \set{x \in \Om \st x^{q} = x}$ is the unique 
+            subfield of $\Om$ with $q$ elements.
+        \item If $\abs{K} = q$ then $K \iso \F_q$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}~
+    \begin{enumerate}
+        \item If $\Char{K} = 0$ then $\Z$ injects into $K$ thus 
+            thus $\aleph_0 \le \abs{\Z} \le \abs{K}$ which is false.
+            Since $[K : \F_p]$ is the cardinality of any basis $B$ of $K$
+            as a vector space over $\F_p$ and $K \iso {\F_p}^B$,
+            $\abs{K} = \abs{{\F_p}^B} = p^{[K : \F_p]}$.
+        \item Easy to show elementarily that $\F_q$ is a subfield.
+            As polynomials over a field are seperable if and only
+            the gcd of the derivative and the polynomial is $1$, 
+            \[ D(X^q - X) = q X^{q - 1} - 1 = - 1 \]\
+            Hence it has $q$ distinct roots in the algebraic closure of $\Om$,
+            namely $\Om$ itself. 
+            Hence $\abs{\F_q} = q$.
+            Uniqueness: if $L \le \Om$ and $\abs{L} = q$ 
+            then for any unit $x \in L \setminus \set{0}$,
+            $x^{q - 1} = 1$ by Lagrange and so $x \in \F_q$.
+            Thus $L \subs \F_q$ and they have equal finite cardinality,
+            so $L = \F_q$.
+        \item If $L$ is a field such that $\abs{L} = q$ then
+             the image of $\Z$ in $L$ has cardinality dividing $q$
+             by Lagrange.
+             Hence $\Char{L} = p$ and the image of $\Z$ is $\F_p$.
+             Finitely generate $L$ over $\F_p$
+             and for each generator $a$ the minimal polynomial of $a$
+             over $\F_p$ splits in $\Om$ since it is aglebraically closed.
+             By `embedding finite extensions via conjugates' in Galois Theory,
+             there is a map $L \to F_q$ which is injective.
+             It is an isomorphism since they have the same finite cardinality.
+    \end{enumerate}
+\end{proof}
+
+\subsection{Multiplicative group of a finite field}
+\begin{dfn}[Euler's Totient Function]
+    If $1 \le a \le d$ in $\Z$ then $a$ is coprime to $d$
+    if and only if $\bar{a} \in \Z / d \Z$ is a generator since
+    \begin{align*}
+            & (a,d) = 1 \\
+        \iff \quad & \exists \la, \mu \in \Z, \la a + \mu d = 1\\
+        \iff \quad & \exists \la \in \Z, \bar{\la a} = 1\\
+        \iff \quad & \< \bar{a} \> = \Z / d \Z
+    \end{align*}
+    We define Euler's totient function 
+    \[
+        \phi(d) := \abs{\set{a \in \Z / d \Z \st \<a\> = \Z / d \Z}} = 
+        \abs{\set{a \in \Z \st 1 \le a \le d \AND (a,d) = 1}}
+    \]
+\end{dfn}
+
+\begin{nttn}
+    For any cyclic group $G$, 
+    let $\Phi(G) = \{g \in G \st \<g\> = G\}$ 
+    be the set of generators.
+\end{nttn}
+
+\begin{prop}[Partitioning cyclic groups]
+    If $n \in \Z_{>0}$ then $n = \sum_{d \mid n} \phi(d)$.
+\end{prop}
+\begin{proof}
+    Let $n \in \Z_{>0}$ and let $d$ divide $n$. 
+    Then by some cyclic group theory there exists a unique cyclic subgroup 
+    $C_d \le \Z /n \Z$ with cardinality $d$.
+    We want to show that $\Z / n \Z = \bigsqcup_{d \mid n} \Phi(C_d)$.
+    Indeed if $x \in \Z / n \Z$ then $\<x\>$ has some order $d$ 
+    dividing $n$ by Lagrange.
+    Hence $x \in \Phi(\<x\>) = \Phi(C_d)$.
+    Thus $\Z / n\Z \subs \cup_{d \mid n} \Phi(C_d)$.
+
+    To show it is disjoint notice that if $x$ is in 
+    $\Phi(C_d) \cap \Phi (C_e)$ then 
+    $d$ and $e$ are both the order of $x$.
+\end{proof}
+
+\begin{prop}[Sufficient condition for cyclic]
+    Let $G$ be a group such that for any $d \mid \abs{G}$,
+    \[\abs{\set{x \in G \st x^d = e}} \le d \]
+    then $G$ is cyclic.
+\end{prop}
+\begin{proof}
+    We show that for all divisors of $\abs{G}$ there is an element
+    of $G$ of that order. 
+    Then in particular $\abs{G} \mid \abs{G}$ 
+    and so there is a generator of $G$.
+
+    Let $d \mid G$. 
+    Consider $\set{x \in G \st x \text{ has order } d}$.
+    If it is non-empty, then take such an $x$:
+    \[
+        \<x\> \subs
+        \set{g \in G \st g^d = e}
+    \]
+    and so $d \le \abs{\<x\>} \le \abs{\set{g \in G \st g^d = e}} \le d$.
+    Then $\<x\> = \set{g \in G \st g^d = e}$.
+    Hence for $g \in G$,
+    \begin{align*}
+        g \text{ has order } d &\iff
+         g \text{ has order } d \AND g^d = e\\
+         &\iff g \text{ has order } d \AND g \in \<x\>\\
+         &\iff \<g\> = \<x\>
+    \end{align*}
+    Hence $\abs{\set{x \in G \st x \text{ has order } d}} = \phi(d)$
+    In either case, (empty or not), 
+    $\abs{\set{x \in G \st x \text{ has order } d}} \le \phi(d)$
+    
+    Assume for a contradiction that there exists a $d$ such that 
+    $\set{x \in G \st x \text{ has order } d}$
+    is empty.
+    Then partitioning 
+    \[G = \bigsqcup_{d \;\mid \;\abs{G}} \set{x \in G \st x \text{ has order } d}\]
+    we have that 
+    \[
+        \abs{G} = \sum_{d \mid \abs{G}} 
+            \abs{\set{x \in G \st x \text{ has order } d}}
+            < \sum_{d \mid \abs{G}} \phi(d) 
+            = \abs{G}
+    \]
+    a contradiction.
+\end{proof}
+
+\begin{prop}[$\F_q^*$ is cyclic]
+    \link{fin_field_units_cyclic}
+    Suppose $d \mid \abs{\F_q^*}$.
+    Then since $\F_q[X]$ has division algorithm,
+    \[\abs{\set{x \in \F_q^* \st x^d = 1}} \le d \]
+    Hence $\F_q^*$ is cyclic.
+\end{prop}
+
+\section{Equations over a finite field}
+\begin{prop}{Power sums lemma}
+    \link{power_sum}
+    Let $u \in \N$ and $K$ be field with $|K| = q$ 
+    a power of a non-trivial prime.
+    Then 
+    \[
+        \sum_{x \in K} x^u = 
+        \begin{cases}
+            -1 &, 1 \le u \AND q - 1 \mid u\\
+            0 &, \text{ otherwise}
+        \end{cases}
+    \]
+\end{prop}
+\begin{proof}
+    Case $u = 0$ then 
+    $\sum_{x \in K^n} x^u = \sum_{x \in K^n} 0 = 0$.
+
+    Case $1 \le u \AND q - 1 \mid u$ then for some $d$,
+    \[\sum_{x \in K} x^u = \sum_{x \in K} (x^(q-1))^d = 
+     = \sum_{x \in K^*} 1^d = (q - 1) 1 = -1\]
+
+    Case $1 \le u \AND q - 1 \not \mid u$ then there exist 
+    $d, r \in \N$ such that $u = (q-1)d + r$ and $0 < r < q - 1$.
+    Let $y$ be a generator of $K^*$ 
+    (\linkto{fin_field_units_cyclic}{$K^*$ is cyclic}).
+    Then suppose for a contradiction that $y^u = 1$,
+    then $q - 1 \mid u$ since $q - 1$ is the order of $y$, 
+    a contradiction.
+    Multiplying by $y$ is a bijection on the group, 
+    hence
+    \[
+        \sum_{x \in K^n} x^u = \sum_{x \in K^n} (yx)^u = 
+        y^u \sum_{x \in K^n} x^u
+    \]
+    Thus $(1 - y^u) \sum_{x \in K^n} x^u = 0$ and so 
+    $\sum_{x \in K^n} x^u = 0$, 
+    as $y^u \ne 1$.
+\end{proof}
+
+\begin{dfn}[Vanishing]
+    Suppose for all $I \subs K[x1, \dots , x_n]$
+    We define the vanishing of $I$, 
+    $V(I) := \{x \in K^n \st \forall f \in I, f(x) = 0\}$
+\end{dfn}
+
+\begin{prop}[Chevalley]
+    Suppose for all $f \in I \subs K[x1, \dots , x_n]$ (finite), 
+    \[\sum_{f \in I} \deg f < n\]
+    Then 
+    \[\abs{V(I)} \ontop{p}{=} 0\]
+\end{prop}
+\begin{proof}
+    Consider $P := \prod_{f \in I} (1 - f^{q-1})$.
+    This is well defined as $I$ is finite.
+    We show that $V(I) = P^{-1} (1)$.
+    Let $x \in K^n$.
+    \[
+        x \in V(I) \implies \forall f \in I, f(x) = 0 
+        \implies  {f(x)}^{q - 1} = 0 
+        \implies P(x) = 1
+    \]
+    \[
+        x \notin V \implies
+        \exists f \in I, f \ne 0
+        \implies {f(x)}^{q - 1} = 1
+        \implies P(x) = 0
+    \]
+    Let 
+    $S : K[x_1 ,\dots, x_n] \to K := f \to \sum_{x \in K^n} f(x)$
+    Then $S(P) = \sum_{x \in V(I)} 1 \ontop{p}{=} \abs{V(I)}$.
+    Thus we need show that $S(P) = 0$.
+
+    \[\deg P = \sum_{f \in I} (q - 1)\deg f 
+    = (q - 1) \sum_{f \in I} \deg f < n \implies < (q - 1) n\]
+    by assumption.
+    Hence there exists a finite set $T$ and $\la_i \in K$ such that
+    \[P = \sum_{i \in T} \la_i \prod_{j = 1}^n x_j^{u_{ij}}\]
+    and for all $i \in T$, $\sum_{j = 1}^n u_{ij} < (q - 1) n$.
+    Then 
+    \begin{align}
+        S(P) &= \sum_{x \in K^n} P(x)\\
+            &= \sum_{x\in K^n} \sum_{i \in T} \la_i 
+            \prod_{j = 1}^n x_j^{u_{ij}}\\
+            &= \sum_{i \in T} \la_i \sum_{x\in K^n} 
+            \prod_{j = 1}^n x_j^{u_{ij}}\\
+    \end{align}
+    Let $i \in T$ then there exists a $k$ such that 
+    $u_{ik} < q - 1$ so
+    \begin{align}
+        & \sum_{x\in K^n} \prod_{j = 1}^n x_j^{u_{ij}}\\
+        = & \sum_{x_1 \in K} \cdots \sum_{x_n \in K} 
+        \prod_{j = 1}^n x_j^{u_{ij}}\\
+        = & \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} \cdots \sum_{x_n \in K} 
+        \prod_{j \ne k} x_j^{u_{ij}} \sum_{x_k \in K} x_k^{u_{ik}}\\
+        = & \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} \cdots \sum_{x_n \in K} 
+        \prod_{j \ne k} x_j^{u_{ij}} 0
+    \end{align}
+    The last part using the \linkto{power_sum}{power sum lemma}.
+    Hence $\abs{V(I)} \ontop{p}{=} S(P) = 0$
+\end{proof}
+
+\begin{cor}[Non-trivial vanishing]
+    Suppose for all $f \in I \subs K[x1, \dots , x_n]$ (finite), 
+    \[\sum_{f \in I} \deg f < n\]
+    and $0 \in V(I)$ then $\exists x \in V(I) \setminus \set{0}$.
+\end{cor}
+\begin{proof}
+    If $\abs{V} = 1$ then $p \not \mid \abs{V}$ which is a contradiction.
+    Thus the vanishing is non-trivial.
+\end{proof}
+
+\begin{dfn}[Homogeneous]
+    $f \in K[x1, \dots , x_n]$ is homogeneous with degree $m$ 
+    if all monomials are of degree $m$.
+\end{dfn}
+
+\begin{cor}[Conics over a finite field]
+    If $3 \le n$ then if $f \in K[x1, \dots , x_n]$ 
+    is homogeneous with degree $2$ then it has a non-trivial zero.
+\end{cor}
+
+\section{Quadratic reciprocity}
+\begin{prop}[Exact sequence]
+    If $K$ is a finite field,
+    \begin{itemize}
+        \item If $\Char{K} = 2$ then all elements are square.
+        \item If $\Char{K} \ne 2$ 
+        then the non-zero squares form a subgroup of index $2$,
+        and is the kernel of the group morphism 
+        $x \to x^{\frac{q-1}{2}}$ into $\<-1\>$.
+    \end{itemize}
+    I can't be bothered to make the exact sequence.%
+\end{prop}
+\begin{proof}~
+    \begin{itemize}
+        \item If $\Char{K} = 2$ then the 
+        \linkto{frobenius}{Frobenius map} $\si_2 : x \mapsto x^2$
+        is an automorphism of $K$. 
+        Hence the preimage of any element squares to that element.
+        \item If $\Char{K} \ne 2$ then generate $K^* = \<g\>$ 
+        since it is cyclic.
+        The map $x \to x^{\frac{q-1}{2}}$ 
+        has kernel $\set{x \in K \st x \text{ square}}$ since
+        (writing any element as a multiple of $g$)
+        \[
+            g^n \in \ker \iff g^\frac{n(q-1)}{2} = 1 \iff 
+            q - 1 \mid \frac{n(q - 1)}{2} \iff n \text{ even} 
+            \iff x \text{ square}
+        \]
+        We check where the generator $g$ is sent. 
+        If $g^{\frac{q - 1}{2}} = 1$ then the order of $g$ 
+        is less than $q - 1$ which is a contradiction
+        hence the image is non-trivial.
+        Any element of the image of the map squares to $1$
+        hence solves $x^2 - 1 = 0$,
+        which only has two solutions in $K$.
+        Thus the image is $\<-1\>$ and the index of the kernel is $2$.
+    \end{itemize}
+\end{proof}
+
+\begin{dfn}[Legendre symbol]
+    If $p$ is prime that is not $2$ and $x \in \F_p$ then
+    \[\legen{x}{p} := 
+    \begin{cases}
+        x^{\frac{p-1}{2}} &, x \text{ unit}\\
+        0 &, x = 0
+    \end{cases}\]
+    Check that for each $p$ this is a homomorphism $\F_p \to \<-1\>$.
+\end{dfn}
+
+\begin{dfn}[$\ep(n)$]
+    If $n \in \Z$ is odd 
+    \[\ep(n):=\frac{n-1}{2} (\mathrm{mod} 2)\]
+\end{dfn}
+
+\begin{prop}[Computations]
+    \begin{align*}
+        \legen{1}{p} =& 1\\
+        \legen{-1}{p} =& (-1)^{\ep(p)}
+    \end{align*}
+\end{prop}
+
+\begin{prop}[Quadratic reciprocity]
+    Let $l \ne p$ be primes that aren't $2$.
+    Then \[\legen{l}{p}\legen{p}{l} = (-1)^{\ep(l)\ep(p)}\]
+\end{prop}
+\begin{proof}
+    Let $w$ be order $l$ element of $\Om$,
+    the algebraic closure of $\F_p$.
+    For $x \in \F_l$ write $w^x$ to be $w^r$ for any $r \in \Z$ such that
+    $x = \bar{r} \in \F_l$ (independant of choice of $r$ by $w^l = 1$).
+    Let 
+    \[y = \sum_{x\in \F_l} \legen{x}{l} w^x \in \Om\]
+
+    We first show that $y^2 = (-1)^{\ep(l)} \bar{l}$, 
+    where $\bar{l} \in \F_p$.
+    \begin{align*}
+        y^2 =& 
+        (\sum_{x \in \F_l} \legen{x}{l} w^x)
+        (\sum_{y \in \F_l} \legen{y}{l} w^y)\\
+        =& \sum_{x \in \F_l} \sum_{y \in \F_l} 
+        \legen{x}{l} w^x \legen{y}{l} w^y\\
+        =& \sum_{x \in \F_l} \sum_{y \in \F_l} \legen{xy}{l} w^{x+y}\\
+        =& \sum_{u \in \F_l} \sum_{x \in \F_l} \legen{x(u - x)}{l} w^u
+    \end{align*}
+    Case on what $x$ is:
+    \begin{align*}
+        x \ne 0 \implies& \legen{x(u - x)}{l} =& \legen{xu - x^2}{l}\\
+            & =& \legen{x^2}{l} \legen{-1}{l} \legen{1-\frac{u}{x}}{l}\\
+            & =& x^{p - 1} \legen{-1}{l} \legen{1 - \frac{u}{x}}{l}\\
+            & =& (-1)^{\ep(l)} \legen{1 - \frac{u}{x}}{l}
+    \end{align*}
+    If $x = 0$ then clearly $\legen{x(u - x)}{l} = 0$.
+    Hence 
+    \[
+        y^2 = \sum_{u \in \F_l} \sum_{x \in \F_l^*} 
+        (-1)^{\ep(l)} \legen{1 - \frac{u}{x}}{l}
+        = (-1)^{\ep(l)} \sum_{u \in \F_l}  \sum_{x \in \F_l^*}
+        \legen{1 - \frac{u}{x}}{l}
+    \]
+    Given $x \ne 0$, case on what $u$ is:
+    \begin{align*}
+        u = 0 \implies &\sum_{x \in \F_l^*} \legen{1 - \frac{u}{x}}{l} \\
+        = &\sum_{x \in \F_l^*} \legen{1}{l} \\
+        = &\sum_{x \in \F_l^*} 1\\
+        = & \bar{l} -1
+    \end{align*}
+    \begin{align*}
+        u \ne 0 \implies &\sum_{x \in \F_l^*} \legen{1 - \frac{u}{x}}{l}\\
+            = &\sum_{x \in F_l^*} \legen{1 - \frac{1}{x}}{l}\\
+            = &\sum_{s \in \F_l^*} \legen{1 - s}{l}\\
+            = &\sum_{s \in \F_l \setminus \set{1}} \legen{s}{l}\\
+            = &\sum_{s \in \F_l} \legen{s}{l} - \legen{1}{l}\\
+            = & - 1 
+    \end{align*}
+    Since the index of the kernel of $\legen{\star}{l}$ is $2$,
+    and the cosets have equal cardinality.
+    Hence 
+    \begin{align*}
+        y^2 (-1)^{\ep(l)} &= \sum_{u \in \F_l}  \sum_{x \in \F_l^*}
+            \legen{1 - \frac{u}{x}}{l}\\
+            &= \bar{l} - 1 - \sum_{u \in \F_l^*} w^u\\
+            &= \bar{l} - (1 + w + w^2 + \dots + w^l)
+    \end{align*}
+    since $l$ is prime. 
+    Note that $0 = w^l - 1 = (w+1)(1+w + \dots + w^l)$.
+    Hence $1+w + \dots + w^l = 0$ and $y^2 = (-1)^{\ep(l)} \bar{l}$.
+
+    Next we show that $y^{p - 1} = \legen{p^-1}{l}$.
+    \begin{align*}
+        y^p = & \sum_{x \in \F_l} {\legen{x}{l}}^p w^xp & \text{ `Freshman's dream'}\\
+            = & \sum_{x \in \F_l} {\legen{x}{l}} w^xp & 
+            \legen{x}{l}= \pm 1 \text{ and } p \text{ is odd}\\
+            = & \sum_{z \in \F_l} \legen{z p^{-1}}{l} w^z\\
+            = & \legen{p^{-1}}{l}(\sum_{z \in \F_l} \legen{z}{l} w^z)\\
+            = & \legen{p^{-1}}{l} y
+    \end{align*}
+    Hence \[y^{p - 1} = \legen{p^{-1}}{l} = (\legen{p{l}})^{-1}\]
+    thus 
+    \begin{align*}
+        \legen{l}{p}\legen{p}{l} =& \legen{l}{p} y^{1 - p}\\
+        =& \legen{l}{p} (y^2)^{\frac{1 - p}{2}}\\
+        =& \legen{l}{p} ((-1)^{\ep(l)} \bar{l})^{\frac{1 - p}{2}}\\
+        =& \legen{l}{p} (\legen{(-1)^{\ep(l)}l}{p})^{-1}\\
+        =& (\legen{(-1)^{\ep(l)}}{p})^{-1}\\
+        =& (-1)^{\ep(l)\ep(p)}
+    \end{align*}
+\end{proof}
