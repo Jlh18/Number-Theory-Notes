@@ -299,10 +299,10 @@
 
 \begin{dfn}[$p$-adic valuation]
     Given $p$ a prime, define $v_p : \Z_p \to \N_\infty$
-    sending any non-zero $x$ to $v_p (x) = n$ 
-    where $n$ is the unique integer
-    and $u$ the unique unit such that $x = p^n u$,
-    and sending $0$ to $\infty$.
+    sending any non-zero $x$ to $n$,
+    where $n \in \N$
+    and $u \in \Z_p$ is a unit such that $x = p^n u$.
+    In the other case we define $v_p(0):=\infty$.
 \end{dfn}
 
 \begin{prop}
@@ -340,9 +340,26 @@
         \item $\abs{xy} \le \abs{x} \abs{y}$
         \item $\abs{1} = 1$
     \end{enumerate}
+    This induces a metric on $\Z_p$.
 \end{dfn}
 \begin{proof}
     Straight forward.
+\end{proof}
+
+\begin{prop}[Cosets are clopen balls]
+    \link{cosets_are_clopen}
+    For any $n$ and $a \in \Z$
+    the coset $a + p^n \Z_p$ is a clopen ball
+    $B_{\de} (a)$ for some $\de \in \R-{>0}$.
+\end{prop}
+\begin{proof}
+    $b \in a + p^n \Z_p$ if and only if 
+    $n \le v_p(b - a)$ if and only if 
+    $\abs{b - a} \le p^{-n}$
+    if and only if 
+    $\abs{b - a} < \frac{p^{-n}+p^{1-n}}{2} =: \de$,
+    as the image of the norm is discrete.
+    Hence $a + p^n \Z_p = \bar{B_{p^{-n}(a)}} = B_\de(a)$ and is clopen.
 \end{proof}
 
 \begin{prop}[Induced topologies are equivalent]
@@ -351,14 +368,16 @@
 \end{prop}
 \begin{proof}
     We first show that the neighbourhoods of points are the same.
-    Call the nieghbourhood filter for a point $a$ 
+    Call the neighbourhood filter for a point $a$ 
     in the metric tolopogy $N_0(a)$
     and the other $N_1(a)$.
-    We use $\<\star \st \dots\>$ to mean the nieghbourhood filter generated
-    by $\star$.
+    We use $\<\star \st \dots\>$ to mean the neighbourhood filter generated
+    by $\{\star \st \dots\}$.
     \begin{align*}
-        N_1(a) &= 
-        \< \ep_n^{-1} (U) \cap \Z_p \st \exists n \in \N, 
+        N_1(a) 
+        &= \< U \cap \Z_p \st a \in U \in 
+        \text{ product topology on $\prod A_n$}\>\\
+        &=\< \ep_n^{-1} (U) \cap \Z_p \st \exists n \in \N, 
         a_n \in U \subs A_n\>\\
         &= \< U \subs \Z_p \st \exists n \in \N,
         a + \ker(\ep_n) \subs U\>\\
@@ -367,15 +386,13 @@
         &= \< U \subs \Z_p \st \exists \de > 0, B_\de(a) \subs U\>\\
         &= N_0(a)
     \end{align*}
-    The last part comes from the observation that
-    $b \in a + p^n \Z_p$ if and only if 
-    $n \le v_p(b - a)$ if and only if 
-    $\abs{b - a} \le p^{-n}$
-    if and only if 
-    $\abs{b - a} < \frac{p^{-n}+p^{1-n}}{2} =: \de$,
-    as the image of the norm is discrete.
-    Hence $a + p^n \Z_p = B_\de(a)$.
 
+    The penultimate equality is due to 
+    \linkto{cosets_are_clopen}{cosets being clopen balls} for one 
+    inclusion and
+    the other inclusion follows from finding $n \in \N$
+    such that $p^{-(n+1)} < \de < p^{-n}$.
+    
     Since a subset $U$ is open in a topology
     if and only if for all points $a \in U, U \in N(p)$
     we see that $U \in \TT_0$ if and only if 
@@ -385,6 +402,7 @@
 \end{proof}
 
 \begin{prop}[Topological properties of $\Z_p$]
+    \link{Z_dense_in_Z_p}
     $\Z_p$ is complete in the topological sense
     and the image of $\Z$ is dense in $\Z_p$.
 \end{prop}
@@ -425,6 +443,28 @@
     We call this $\Q_p$.
 \end{dfn}
 
+\begin{prop}[Inclusions into $\Q_p$]
+    There is a unique injective ring morphism $\Z_p \to \Q_p$
+    which (without confusion) we treat as $\subs$
+    and there is a unique injective extension of the ring morphism 
+    $\io : \Z \to \Z_p$ to $\Q \to \Q_p$.
+    \begin{center}
+    \begin{tikzcd}
+        \Z \ar[r, "\subs"] \ar[d, "\io", swap]
+        &\Q \ar[d, dashed]\\
+        \Z_p \ar[r, "\subs", swap]&\Q_p
+    \end{tikzcd}
+    \end{center}
+\end{prop}
+\begin{proof}
+    The inclusion $\Z_p \to \Q_p$ is a result
+    of the construction of the field of fractions.
+    We extend $\io$ by mapping $\frac{a}{b} \in \Q$ to
+    $\frac{\io(a)}{\io(b)} \in \Q_p$.
+    Check that it is well-defined and injective,
+    a ring morphism and that the diagram above commutes.
+\end{proof}
+
 \begin{prop}
     $\Q_p \iso \Z_p[\frac{1}{p}]$ canonically and any unit of $\Q_p$
     can be uniquely written in the form $p^n u$ for $n \in \Z$
@@ -445,3 +485,75 @@
 
     The same trick gives us the decomposition of units in $\Q_p$.
 \end{proof}
+
+\begin{dfn}[$p$-adic valuation for $\Q_p$]
+    Extend the definition of $v_p$ to $\Q_p$
+    by taking $x \ne 0$ to $n$ such that $p^n u = x$.
+
+    Note that $0 \le v_p(x)$ if an only if 
+    $x$ is a $p$-adic integer.
+\end{dfn}
+
+\begin{dfn}[Addition is a homeomorphism on $\Q_p$]
+    Let $a \in \Q_p$.
+    Then the map $\Q_p \to \Q_p$ sending 
+    $b \mapsto a + b$ is a homeomorphism.
+\end{dfn}
+\begin{proof}
+    Let $b \in \Q_b$ and let $\de \in \R_{>0}$.
+    It suffices that $a + B_\de (b) \subs B_\de (a + b)$.
+    Indeed if $c \in B_\de (b)$ then
+    $\abs{a + c - (a + b)} = \abs{c - b} < \de$.
+
+    This map has inverse $-a$ which is continuous for the 
+    same reasons. 
+    Hence $a+\star$ is a homeomorphism.
+\end{proof}
+
+\begin{prop}
+    For any $n$ 
+    $p^n \Z_p$ is clopen in $\Q_p$,
+    in particular $\Z_p$ is open in $\Q_p$.
+    Hence $\Q_p$ is locally compact
+    and $\io(\Q)$ is dense in $\Q_p$.
+\end{prop}
+\begin{proof}
+    Since $\Z_p$ and $\Q_p$ share the same metric 
+    Each 
+    \linkto{cosets_are_clopen}{$p^n \Z_p$ is clopen in $\Q_p$}.
+    We first note that $\Q_p$ is locally compact at $0$
+    since $\Z_p$ is an open compact neighbourhood of $0$.
+    Furthermore, for any $a \in \Q_p$, 
+    $a + \star$ is a homeomorphism so
+    the coset $a + \Z_p$ 
+    is the image of an open compact set which is open and compact.
+    Clearly $a \in a + \Z_p$. 
+    Hence $\Q_p$ is locally compact.
+
+    Clearly $\bar{\io(\Q)} \subs \Q_p$
+    Let $x \in \Q_p$,
+    then $x = p^n u$ for $n \in \N $ and $u \in \Z_p$ a unit.
+    Then 
+    $\linkto{Z_dense_in_Z_p}{u \in \bar{\io(\Z)}} \subs \bar{\io(\Q)}$
+    and so $x \in p^n \bar{\io(\Q)} \subs \bar{\io(\Q)}$.
+    Thus $\Q$ is dense in $\Q_p$.
+\end{proof}
+
+\begin{prop}[Series converge iff terms converge]
+    Let $x : \N \to \Q_p$ be a sequence.
+    Then $x$ converges if and only if 
+    $\lim_{n \in \N}(x(n+1) - x(n)) = 0$.
+\end{prop}
+\begin{proof}
+    Since $\Q_p$ is complete
+    it suffices to show that $x$ is Cauchy if and only if 
+    $\lim_{n \in \N}(x(n+1) - x(n)) = 0$.
+    The forward implication is straightforward.
+    For the other direction take $\de \in \R_{>0}$.
+    By assumption 
+    \[\exists N \in \N, \forall n \in \N_{>N}, \abs{x(n+1) - x(n)} < \frac{\de}{2}\]
+    Let $n, m \in \N$ be such that $N \le n \le m$.
+    By induction we can show that $\abs{x(m) - x(n)} \le \frac{\de}{2} < \de$,
+    using $\abs{x + y} \le \max(\abs{x},\abs{y})$ for the induction.
+\end{proof}
+
