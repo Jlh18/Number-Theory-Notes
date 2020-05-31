@@ -1,5 +1,11 @@
 \chapter{p-adic Fields}
 \section{p-adic Integers and Rationals}
+\begin{dfn}[Projective system]
+    Let $\CC$ be a category.
+    A contravariant functor $F : (\N,\le) \to \CC$ 
+    is called a projective system.
+\end{dfn}
+
 \begin{dfn}[Projective system $A$]
     Define a contravariant functor $A : (\N,\le) \to \RING$ 
     such that for each $n$
@@ -20,6 +26,7 @@
     \[\Z_p = \{x \in \prod_{n \in \N} A_n \st 
     (\forall n \in \N, x_n \in A_n) \AND
     (\forall n > 0, \phi_n(x_n) = x_{n-1})\}\]
+    be the projective limit.
     Define addition and multiplication pointwise. 
     Verify that this $\Z_p$ is a ring with $0 = (0)_{n \in \N}$
     and $1 = (1)_{n \in \N}$.
@@ -510,12 +517,16 @@
     Hence $a+\star$ is a homeomorphism.
 \end{proof}
 
-\begin{prop}
-    For any $n$ 
-    $p^n \Z_p$ is clopen in $\Q_p$,
-    in particular $\Z_p$ is open in $\Q_p$.
-    Hence $\Q_p$ is locally compact
-    and $\io(\Q)$ is dense in $\Q_p$.
+\begin{prop}[Topological properties of $\Q_p$]
+    Useful properties:
+    \begin{enumerate}
+        \item For any $n$ 
+        $p^n \Z_p$ is clopen in $\Q_p$,
+        in particular $\Z_p$ is open in $\Q_p$.
+        \item $\Q_p$ is locally compact
+        and $\io(\Q)$ is dense in $\Q_p$.
+        \item $\Q_p$ is complete.
+    \end{enumerate}
 \end{prop}
 \begin{proof}
     Since $\Z_p$ and $\Q_p$ share the same metric 
@@ -537,6 +548,18 @@
     $\linkto{Z_dense_in_Z_p}{u \in \bar{\io(\Z)}} \subs \bar{\io(\Q)}$
     and so $x \in p^n \bar{\io(\Q)} \subs \bar{\io(\Q)}$.
     Thus $\Q$ is dense in $\Q_p$.
+
+    $\Q_p$ is complete: take a Cauchy sequence in $\Q_p$.
+    Let $\de = 1$, 
+    then there exists $N \in \N$ such that for any $n, m \in \N$,
+    if $N \le n \le m$ then $\abs{x_m - x_n} \le 1$.
+    Hence the sequence $(x_m)_{N \le m} \subs x_N + \Z_p$ 
+    which is compact as it is an image of the homeomorphism 
+    $x_m + \star$.
+    Hence there is a subsequence converging to a limit in 
+    $x_m + \Z_p$, 
+    and applying Cauchy we conclude this is the limit of the 
+    original sequence.
 \end{proof}
 
 \begin{prop}[Series converge iff terms converge]
@@ -551,9 +574,131 @@
     The forward implication is straightforward.
     For the other direction take $\de \in \R_{>0}$.
     By assumption 
-    \[\exists N \in \N, \forall n \in \N_{>N}, \abs{x(n+1) - x(n)} < \frac{\de}{2}\]
+    \[\exists N \in \N, \forall n \in \N_{>N}, 
+    \abs{x(n+1) - x(n)} < \frac{\de}{2}\]
     Let $n, m \in \N$ be such that $N \le n \le m$.
-    By induction we can show that $\abs{x(m) - x(n)} \le \frac{\de}{2} < \de$,
-    using $\abs{x + y} \le \max(\abs{x},\abs{y})$ for the induction.
+    By induction we can show that 
+    $\abs{x(m) - x(n)} \le \frac{\de}{2} < \de$,
+    using $\abs{x + y} \le \max(\abs{x},\abs{y})$ 
+    for the induction.
 \end{proof}
 
+\section{p-adic Equations}
+\begin{prop}[Non-empty projective limits]
+    \link{non_empty_projective_limits}
+    Suppose $F : (\N,\le) \to \CC$ is a projective system.
+    Denote $\fall{m}{n}$ as the image map in $\CC$ 
+    from $F(n) \to F(m)$.
+    Suppose that for every $n \in \N$ the object
+    $F(n)$ in $\CC$ is finite and non-empty.
+    Then the projective limit 
+    \[\varprojlim F := \set{
+        x \in \prod_{n\in \N} F(n) \st \forall n \in \N, 
+        \fall{n+1}{n}x_{n+1} = x_n}\]
+    is non-empty.
+    Conversely if the projective limit is non-empty
+    then each $F(n)$ is non-empty.
+\end{prop}
+\begin{proof}
+    The trick is to construct a surjective projective system where
+    the image objects are subsets of each $F(n)$.
+    Let $n \in \N$.
+    Suppose for a contradiction that 
+    \[\forall k \in \N, \exists l \in \N_{\ge k}, 
+    \fall{n}{n+l} D_{n+l} \ne \fall{n}{n+k} D_{n+k}\]
+    Then by induction we can show that 
+    \[\forall k \in \N, \exists l \in \N_{\ge k}, 
+    \fall{n}{n+l} D_{n+l} \subset \fall{n}{n+k} D_{n+k}\]
+    Since $D_n$ is finite and each 
+    $\fall{n}{n+k} D_{n+k} \subs D_n$,
+    we can conclude by induction that there exists 
+    $k \in \N$ such that 
+    $\fall{n}{n+k} D_{n+k} = \nothing$,
+    which implies that $D_{n+k}$ is empty,
+    a contradiction.
+    Hence 
+    \[\exists k \in \N, \forall l \in \N_{\ge k}, 
+    \fall{n}{n+l} D_{n+l} = \fall{n}{n+k} D_{n+k}\]
+    The sets `become constant'.
+    We define a functor $G : (\N,\le) \to \CC$
+    sending $n \mapsto \fall{n}{n+k} D_{n+k}$ and
+    with the same image maps as $F$.
+    This functor is well-defined and surjective because
+    for any $n\in \N$, 
+    using the `becomes constant' property of $G(n + 1)$
+    we can show that $\fall{n}{n+1} G(n+1) = G(n)$.
+    
+    Let $x_0 \in G(0)$, 
+    which is non-empty as it is the 
+    image of a non-empty set $g(k)$ for some
+    $k \in \N$.
+    By induction we can find $x_n \in G(n)$ 
+    for each $n \in \N$ such that 
+    $\fall{i}{i + 1} x_{i+1} = x_i$.
+    Hence $(x_n)_{n \in \N} \in \varprojlim G$.
+    Since each $x_n \in F(n)$, 
+    $(x_n)_{n \in \N} \in \varprojlim F$.
+
+    The converse is clear.
+\end{proof}
+
+\begin{nttn}
+    For $\phi: A \to B$ a ring morphism,
+    $S$ a finite subset of $A[x_1, \dots, x_m]$,
+    and
+    \[f = \sum_{\la \in S} \la 
+    \prod_{i = 1}^m (x_i)^{r_{i,\la}} 
+    \quad \in A [x_1, \dots, x_m]\]
+    we write $\phi (f)$ to mean 
+    \[\sum_{\la \in S} \phi(\la) 
+    \prod_{i = 1}^m (x_i)^{r_{i,\la}} 
+    \quad \in B [x_1, \dots, x_m]\]
+\end{nttn}
+
+\begin{prop}[Vanishing of multivariable polynomials over $\Z_p$]
+    Let $I \subs \Z_p [x_i]_{1 \le i \le m}$.
+    Then $\V(I)$ is non-empty
+    if and only if for all $n \in \N$, 
+    $V_n := \V (\set{\ep_n(f) | f \in I})$ is non-empty.
+\end{prop}
+\begin{proof}
+    We first show that the functor $V$ mapping $n \mapsto V_n$ 
+    and $n \le m$ to $\fall{n}{m} : V_m \to V_n$
+    is a projective system.
+    We just need to show that 
+    \[\forall n \in \N, \forall a \in V_{n+1}, 
+    \fall{n}{n+1} a \in V_n\]
+    Indeed if $a \in V_{n+1}$ then 
+    \begin{align*}
+        \ep_n (f) \circ \fall{n}{n+1}(a) 
+        & = \fall{n}{n+1} \circ \ep_{n+1} 
+        (f) (\fall{n}{n+1}(a))
+        & \\
+        &= \fall{n}{n+1} \brkt{\ep_{n+1} (f) (a)}
+        & \text{ verify this}\\
+        &= \fall{n}{n+1} (0) = 0 
+        & \text{ since } a \in V_{n+1}
+    \end{align*}
+    Hence this forms a projective system with each $V_n$ 
+    finite (since they are respectively subsets of $A_n$).
+    Thus \linkto{non_empty_projective_limits}{
+        $\varprojlim V$ is non-empty if and only if
+        each $V_n$ is non-empty.}
+    Claim: $\varprojlim V$ bijects with $\V(I)$.
+
+    Let $(a_1, \dots, a_m) \in (\Z_p)^m$, 
+    then clearly for each $i \in \set{1, \dots, m}$,
+    $(\ep_n(a_i))_{n \in \N} \in $ 
+    \begin{align*}
+        (a_1, \dots, a_m) \in \V(I) \subs (\Z_p)^m 
+        &\iff \forall f \in I, f(a_1, \dots, a_m) = 0 \in \Z_p\\
+        &\iff \forall n \in \N, \forall f \in I,  
+        \ep_n(f(a_1, \dots, a_m)) = 0 \in A_n\\
+        &\iff \forall n \in \N, \forall f \in I, 
+        \ep_n(f)(\ep_n(a_1), \dots, \ep_n(a_m)) = 0 \in A_n\\
+        &\iff (\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in  
+        \varprojlim V
+    \end{align*}
+    Hence the sets biject and $\V$ is non-empty if
+    and only if each $V_n$ is non-empty.
+\end{proof}

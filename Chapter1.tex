@@ -189,7 +189,7 @@
     \[\sum_{x \in K} x^u = \sum_{x \in K} (x^(q-1))^d = 
      = \sum_{x \in K^*} 1^d = (q - 1) 1 = -1\]
 
-    Case $1 \le u \AND q - 1 \not \mid u$ then there exist 
+    Case $1 \le u \AND q - 1 \nmid u$ then there exist 
     $d, r \in \N$ such that $u = (q-1)d + r$ and $0 < r < q - 1$.
     Let $y$ be a generator of $K^*$ 
     (\linkto{fin_field_units_cyclic}{$K^*$ is cyclic}).
@@ -208,36 +208,37 @@
 \end{proof}
 
 \begin{dfn}[Vanishing]
-    Suppose for all $I \subs K[x1, \dots , x_n]$
+    Let $R$ be a ring.
+    Suppose for all $I \subs R[x1, \dots , x_n]$
     We define the vanishing of $I$, 
-    $V(I) := \{x \in K^n \st \forall f \in I, f(x) = 0\}$
+    $\V(I) := \{x \in R^n \st \forall f \in I, f(x) = 0\}$
 \end{dfn}
 
 \begin{prop}[Chevalley]
-    Suppose for all $f \in I \subs K[x1, \dots , x_n]$ (finite), 
+    Suppose for all $f \in I \subs K[x_1, \dots , x_n]$ (finite), 
     \[\sum_{f \in I} \deg f < n\]
     Then 
-    \[\abs{V(I)} \ontop{p}{=} 0\]
+    \[\abs{\V(I)} \ontop{p}{=} 0\]
 \end{prop}
 \begin{proof}
     Consider $P := \prod_{f \in I} (1 - f^{q-1})$.
     This is well defined as $I$ is finite.
-    We show that $V(I) = P^{-1} (1)$.
+    We show that $\V(I) = P^{-1} (1)$.
     Let $x \in K^n$.
     \[
-        x \in V(I) \implies \forall f \in I, f(x) = 0 
+        x \in \V(I) \implies \forall f \in I, f(x) = 0 
         \implies  {f(x)}^{q - 1} = 0 
         \implies P(x) = 1
     \]
     \[
-        x \notin V \implies
+        x \notin \V \implies
         \exists f \in I, f \ne 0
         \implies {f(x)}^{q - 1} = 1
         \implies P(x) = 0
     \]
     Let 
     $S : K[x_1 ,\dots, x_n] \to K := f \to \sum_{x \in K^n} f(x)$
-    Then $S(P) = \sum_{x \in V(I)} 1 \ontop{p}{=} \abs{V(I)}$.
+    Then $S(P) = \sum_{x \in V(I)} 1 \ontop{p}{=} \abs{\V(I)}$.
     Thus we need show that $S(P) = 0$.
 
     \[\deg P = \sum_{f \in I} (q - 1)\deg f 
@@ -266,26 +267,26 @@
         \prod_{j \ne k} x_j^{u_{ij}} 0
     \end{align}
     The last part using the \linkto{power_sum}{power sum lemma}.
-    Hence $\abs{V(I)} \ontop{p}{=} S(P) = 0$
+    Hence $\abs{\V(I)} \ontop{p}{=} S(P) = 0$
 \end{proof}
 
 \begin{cor}[Non-trivial vanishing]
-    Suppose for all $f \in I \subs K[x1, \dots , x_n]$ (finite), 
+    Suppose for all $f \in I \subs K[x_1, \dots , x_n]$ (finite), 
     \[\sum_{f \in I} \deg f < n\]
-    and $0 \in V(I)$ then $\exists x \in V(I) \setminus \set{0}$.
+    and $0 \in \V(I)$ then $\exists x \in \V(I) \setminus \set{0}$.
 \end{cor}
 \begin{proof}
-    If $\abs{V} = 1$ then $p \not \mid \abs{V}$ which is a contradiction.
+    If $\abs{V} = 1$ then $p \not \mid \abs{\V}$ which is a contradiction.
     Thus the vanishing is non-trivial.
 \end{proof}
 
 \begin{dfn}[Homogeneous]
-    $f \in K[x1, \dots , x_n]$ is homogeneous with degree $m$ 
+    $f \in K[x_1, \dots , x_n]$ is homogeneous with degree $m$ 
     if all monomials are of degree $m$.
 \end{dfn}
 
 \begin{cor}[Conics over a finite field]
-    If $3 \le n$ then if $f \in K[x1, \dots , x_n]$ 
+    If $3 \le n$ then if $f \in K[x_1, \dots , x_n]$ 
     is homogeneous with degree $2$ then it has a non-trivial zero.
 \end{cor}
 
