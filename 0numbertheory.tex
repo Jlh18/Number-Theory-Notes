@@ -151,6 +151,7 @@
 \renewcommand{\>}{\rangle}
 \renewcommand{\hat}[1]{\widehat{#1}}
 \renewcommand{\check}[1]{\widecheck{#1}}
+\newcommand{\dbd}[2]{\frac{\partial #1}{\partial #2}}
 
 % % Galois
 \newcommand{\Gal}[2]{\mathrm{Gal}_{#1}(#2)}
@@ -298,7 +299,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{dfn}{Definition}
 \newmdtheoremenv[
     linewidth = 2 pt,
@@ -308,7 +309,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{prop}{Proposition}
 \newmdtheoremenv[
     linewidth = 2 pt,
@@ -318,7 +319,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{cor}{Corollary}
 
 
@@ -331,7 +332,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{ex}{Exercise}
 \newmdtheoremenv[
     linewidth = 0.7 pt,
@@ -341,7 +342,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{eg}{Example}
 \newmdtheoremenv[
     linewidth = 0.7 pt,
@@ -351,7 +352,7 @@
     topline = false,
     bottomline = false,
     rightline = false,
-    footnoteinside = true
+    footnoteinside = false
 ]{nttn}{Notation}
 
 \theoremstyle{remarkstyle}

@@ -520,7 +520,7 @@
 \begin{prop}[Topological properties of $\Q_p$]
     Useful properties:
     \begin{enumerate}
-        \item For any $n$ 
+        \item For any $n \in \N$, 
         $p^n \Z_p$ is clopen in $\Q_p$,
         in particular $\Z_p$ is open in $\Q_p$.
         \item $\Q_p$ is locally compact
@@ -584,6 +584,7 @@
 \end{proof}
 
 \section{p-adic Equations}
+
 \begin{prop}[Non-empty projective limits]
     \link{non_empty_projective_limits}
     Suppose $F : (\N,\le) \to \CC$ is a projective system.
@@ -634,12 +635,12 @@
     $k \in \N$.
     By induction we can find $x_n \in G(n)$ 
     for each $n \in \N$ such that 
-    $\fall{i}{i + 1} x_{i+1} = x_i$.
+    $\fall{n}{n + 1} x_{n+1} = x_n$.
     Hence $(x_n)_{n \in \N} \in \varprojlim G$.
     Since each $x_n \in F(n)$, 
     $(x_n)_{n \in \N} \in \varprojlim F$.
 
-    The converse is clear.
+    The converse is immediate from the previous proposition.
 \end{proof}
 
 \begin{nttn}
@@ -655,20 +656,46 @@
     \quad \in B [x_1, \dots, x_m]\]
 \end{nttn}
 
-\begin{prop}[Vanishing of multivariable polynomials over $\Z_p$]
-    Let $I \subs \Z_p [x_i]_{1 \le i \le m}$.
-    Then $\V(I)$ is non-empty
+\begin{prop}[Vanishing commutes with limit]
+    \link{vanishing_commutes_with_limit}
+    Let $I \subs \Z_p [x_1, \dots, x_m]$.
+    Then \[\V(I,\Z_p) \iso \varprojlim_{n \in \N} \V(\ep_n(I),A_n)\]
+    via $(a_1,\dots, a_m) \in \V(I)$
+    being sent to
+    $(\ep_n(a_1),\dots, \ep_n(a_m))_{n\in\N} \in \varprojlim \V(\ep_n(I),A_n)$.
+
+    In particular $\V(I)$ is non-empty
     if and only if for all $n \in \N$, 
-    $V_n := \V (\set{\ep_n(f) | f \in I})$ is non-empty.
+    $V_n := \V (\ep_n(I))$ is non-empty,
+    where $\ep_n(I)$ denotes $\set{\ep_n(f) \st f \in I}$.
 \end{prop}
 \begin{proof}
+    Note that $(a_1, \dots, a_m) \in (\Z_p)^m$, 
+    if and only if for all $i \in \set{1, \dots, m}$,
+    $a_i \in \varprojlim A_n$
+    if and only if 
+    for all $i \in \set{1, \dots, m}, n \in \N$,
+    $\ep_n(a_i) \in A_n$ and $\fall{n}{n+1}\ep_{n+1}(a_i) = \ep_n(a_i)$.
+    This is if and only if for all $n \in \N$,
+    \[(\ep_n(a_1), \dots, \ep_n(a_m)) \in A_n^m
+    \text{and} \fall{n}{n+1}(\ep_{n+1}(a_1), 
+    \dots, \ep_{n+1}(a_m)) = \ep_n(a_i)\]
+    which is if and only if 
+    $(\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in \varprojlim (A_n^m)$.
+    Hence we have an isomorphism of rings 
+    \[(\Z_p)^m = (\varprojlim{A_n})^m \iso \varprojlim (A_n^m)\]
+
     We first show that the functor $V$ mapping $n \mapsto V_n$ 
     and $n \le m$ to $\fall{n}{m} : V_m \to V_n$
     is a projective system.
     We just need to show that 
     \[\forall n \in \N, \forall a \in V_{n+1}, 
     \fall{n}{n+1} a \in V_n\]
-    Indeed if $a \in V_{n+1}$ then 
+    Indeed if $a \in V_{n+1}$ then \footnote{
+        For $\phi: A \to B we $ and $a \in A^m$ we write 
+        $\phi(a) = \phi(a_1, \dots, a_m) = (\phi(a_1), \dots, \phi(a_m))$.
+        In our projective system we use this notation for $\fall{n}{n+1}$.
+    }
     \begin{align*}
         \ep_n (f) \circ \fall{n}{n+1}(a) 
         & = \fall{n}{n+1} \circ \ep_{n+1} 
@@ -681,14 +708,11 @@
     \end{align*}
     Hence this forms a projective system with each $V_n$ 
     finite (since they are respectively subsets of $A_n$).
-    Thus \linkto{non_empty_projective_limits}{
-        $\varprojlim V$ is non-empty if and only if
-        each $V_n$ is non-empty.}
-    Claim: $\varprojlim V$ bijects with $\V(I)$.
+    
+    Claim: $\varprojlim V$ is isomorphic to $\V(I)$
+    via the isomorphism 
+    \[(\Z_p)^m \iso \varprojlim (A_n^m)\]
 
-    Let $(a_1, \dots, a_m) \in (\Z_p)^m$, 
-    then clearly for each $i \in \set{1, \dots, m}$,
-    $(\ep_n(a_i))_{n \in \N} \in $ 
     \begin{align*}
         (a_1, \dots, a_m) \in \V(I) \subs (\Z_p)^m 
         &\iff \forall f \in I, f(a_1, \dots, a_m) = 0 \in \Z_p\\
@@ -699,6 +723,206 @@
         &\iff (\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in  
         \varprojlim V
     \end{align*}
-    Hence the sets biject and $\V$ is non-empty if
-    and only if each $V_n$ is non-empty.
 \end{proof}
+
+\begin{dfn}
+    For $R$ a ring $(a_1, \dots, a_m) \in R^m$ is primitive if
+    there exists $i \in \set{1,\dots,m}$ such that $a_i$ is a unit.
+    For the cases $R = A_n$ or $R = \Z_p$, 
+    elements are non-primative if and only if for all 
+    $i \in \set{1,\dots,m}$, $a_i \in p R^m$.
+\end{dfn}
+
+\begin{prop}
+    Let $I \subs \Z_p[x_1,\dots, x_m]$ be such that 
+    $\forall f \in I, f$ is homogeneous.
+    Then the following are equivalent:
+    \begin{enumerate}
+        \item There exists a non-zero $a \in \V(I,\Q_p)$.
+        \item There exists a primitive $a \in \V(I,\Z_p)$.
+        \item For each $n \in \N$, 
+            there exists a primitive $a \in \V(\ep_n(I),A_n)$.
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    2. implies 1. is straightforward. 
+    If 1. is true then there exists a non-zero 
+    $a = (a_1,\dots,a_m) \in (\Q_p)^m$
+    such that for any $f \in I$, $f(a)=0$.
+    Define $b = p^{-h} a$ where $h = \min_{1 \le i \le m} (v_p(a_i))$.
+    This is well-defined as all $a_i$ are non-zero.
+    $b$ is in $(\Z_p)^m$: for any $i \in \set{1, \dots ,m}$,
+    $a_i = p^{v_p(a_i)} u_i$ for a unit $u_i \in \Z_p$ and so
+    $b_i = p^(v_p - h) u_i$ with $0 \le v_p - h = v_p(b_i)$
+    since $h$ was the minimum.
+    $b$ is primitive: 
+    there exists an $i$ that minimises $v_p(a_i)$.
+    Then $b_i = p^{-h} a_i = p^{v_p(a_i) - h} u_i = u_i$ 
+    is a unit in $\Z_p$.
+    $b$ is in the vanishing $\V(I,\Z_p)$ because $f$ is homogeneous.
+    (Write out $f$ as a sum and use the fact that the powers add to 
+    the degree of $f$.)
+
+    We show 2. if and only if 3. by considering the subsets
+    $P(I, \Z_p)$ and $P(\ep_n(I),A_n)$, 
+    the primitive elements of the vanishings.
+    The $P(\ep_n(I),A_n)$ form a projective system with limit
+    $\varprojlim P(\ep_n(I),A_n) \iso P(I, \Z_p)$ via the same
+    isomorphism. 
+    Then \linkto{non_empty_projective_limits}{
+        $P(I, \Z_p)$ is non-empty if and only if for all $n \in \N$,
+        $P(\ep_n(I),A_n)$ is non-empty.}
+\end{proof}
+
+\begin{prop}[Taylor's theorem]
+    \link{taylor}
+    If $R$ be a ring,
+    $f\in R[x]$
+    and $a \in \Z_p$,
+    there exists a $g \in R[x]$
+    such that 
+    \[f(x) - f(a) = f'(a)(x - a) + g(x) (x - a)^2\]
+\end{prop}
+\begin{proof}
+    Rephrase the statement as 
+    \[f(x) - f(a) = f'(a)(x - a) \quad \mod (x - a)^2\]
+    We show that for any $n$, $f = x^n$ satisfies the above.
+    If $n = 0$ then we can pick $g(x) = 0$ and we are done.
+    For the induction step we assume there exists 
+    $g \in R[x]$ such that 
+    \[x^n - a^n = n a^{n-1} (x-a) + g(x)(x - a)^2\]
+    Suffices to show that 
+    \[ \frac{x^{n+1} - a^{n+1}}{x-a}= (n+1) a^n \quad \mod (x - a)\]
+    Then \begin{align*}
+        \frac{x^{n+1} - a^{n+1}}{x-a}&= x^n + \dots + a^n\\
+        &= \sum_{k=0}^n x^k a^{n-k} \quad \mod (x - a)^2\\
+        &= \sum_{k=0}^n a^n \quad \mod (x - a)^2\\
+        &= (n+1) a^n \quad \mod (x - a)^2
+    \end{align*}
+    Hence it is true for all monomials.
+    Now let $f = \sum_n \la_n x^n$ be any polynomial.
+    Then 
+    \begin{align*}
+        f(x) - f(a) = \sum_n \la_n (x^n - a^n)\quad \mod (x - a)^2\\
+        &= \sum_n \la_n n a^{n-1} (x-a)\quad \mod (x - a)^2\\
+        &= (x-a) \sum_n \la_n n a^{n-1}\quad \mod (x - a)^2\\
+        &= (x-a)f'(a)\quad \mod (x - a)^2
+    \end{align*}
+\end{proof}
+
+\begin{prop}[Newton's Method]
+    \link{newton}
+    Let $f \in \Z_p[x]$, $a \in \Z_p$
+    conceptually:
+    Suppose for $f'(a) \le 1$.
+    Then there exists $y \in \Z_p$ such that
+    \begin{enumerate}
+        \item $\abs{f'(a)(y - a)} \le \abs{f(a)}$
+        \item $\abs{f(y)} \le \frac{\abs{f(a)}}{p}$
+        \item $\abs{f'(y)} = \abs{f'(a)}$
+    \end{enumerate}
+    Hence we have $y$ such that it is close to $a$,
+    $f(y)$ is `much' closer to $0$, 
+    and the derivative is the same size.
+
+    Elementarily:
+    Suppose $b,c \in \Z_p, n, k \in \Z$.
+    Suppose $0 \le 2k < n$, $f(a) = p^n b$, $f'(a) = p^{k} c$ 
+    and $c$ is a unit.
+    Then there exists $y \in \Z_p$ such that 
+    \[
+        y - a \in p^{n-k} \Z_p \quad
+        f(y) \in p^{n+1} \Z_p, \quad v_p(f'(y)) = k, 
+    \]
+\end{prop}
+\begin{proof}
+    Take $y = a - p^{n-k} c^{-1} b$.
+    Clealy $y - a \in p^{n-k} \Z_p $.
+    By \linkto{taylor}{Taylor's formula}
+    \begin{align*}
+        f(y) - f(a) &=  
+        - f'(a) p^{n-k} c^{-1} b + g(y) c^{-2} b^2 (p^{n-k})^2\\
+        \implies f(y) - p^n b &= - p^{k} b p^{n-k} z + 
+        g(y) c^{-2} b^2 p^{2n - 2k}\\
+        \implies f(y) &= c^{-2} b^2 g(y) p^{2n - 2k}
+    \end{align*}
+    Hence $f(y) \in p^{2n + 1} \Z_p$ if and only if
+    $2n + 1 \le 2n - 2k$ if and only if $2k + 1 \le n$,
+    which is true.
+
+    To check that  $v_p(f'(y)) = k$ we use Taylor's formula again:
+    \[f'(y) - f'(a) = f''(a)(y - a) + g(y) (y - a)^2\]
+    Hence 
+    \begin{align*}
+        f'(y) &= 
+        f'(a) - f''(a) p^{n-k} c^{-1} b + g(x)p^{2n-2k}c^{-2}b^2\\
+        &= p^k c - (f''(a) c^{-1} b + g(x)p^{n-k}c^{-2}b^2)p^{n-k}\\
+        &= p^k (c - \star p^{n-2k})
+    \end{align*}
+    where $\star \in \Z_p$.
+    Hence $c - \star p^{n-2k}$ is a unit since $p$ does not divide it.
+    Thus $v_p(f'(y)) = k$. 
+\end{proof}
+
+\begin{prop}[Polynomials are continuous]
+    \link{polynomials_continuous}
+    The maps $\star + \star : (\Q_p)^2 \to \Q_p$ and 
+    $\star \cdot \star : (\Q_p)^2 \to \Q_p$ are continuous.
+    Hence by induction polynomials are continuous maps.
+\end{prop}
+\begin{proof}
+    Standard.
+    For product use the trick
+    \[ab - cd = a(b - d) + b(a - c) +(a - c)(d - b)\]
+\end{proof}
+
+\begin{prop}[?]
+    If $f \in \Z_p[x_1,\dots, x_m]$ and there exist 
+    $a \in (\Z_p)^m$,
+    $n, k \in \Z$ such that $f(a) \in p^n \Z_p$
+    and there exists $j \in \set{1, \dots, m}$ such that 
+    $v_p (\dbd{f}{x_j}(a)) = k$,
+    then there exists $y \in (\Z_p)^m$ such that
+    \[a - y \in p^{n-k} \Z_p \quad \text{ and } \quad f(y) = 0\]
+\end{prop}
+\begin{proof}
+    Case $m = 1$ and let $f \in \Z_p[x_1]$, 
+    $a \in \Z_p, n, k \in \Z$ such that $f(a) \in p^n \Z_p$
+    such that 
+    $v_p (\dbd{f}{x_1}(a)) = v_p(f'(a))= k$.
+    Let $y_n = a$.
+    By induction with \linkto{newton}{Newton's Method} 
+    at each step, 
+    we obtain for each $l \in \N_{> n}$ a 
+    $y_l \in \Z_p$ such that $f(y_l) \in p^{m} \Z$,
+    $v_p(f'(y_m)) = k$ and 
+    $y_{l} - y_{l-1} \in p^{l-1-k} \Z_p$.
+    The $(y_m)_{m \in \N}$ is a sequence in $\Z_p$
+    which is Cauchy since each $y_{l} - y_{l-1} \in p^{l-1-k} \Z_p$
+    so $\abs{y_{l} - y_{l-1}} \le p^{k + 1 - l} \to 0$ 
+    as $l \to \infty$.
+    Since $\Z_p$ is complete this converges to $y \in \Z_p$.
+    It is clear that $\abs{y - y{l}} \le p^{k-l}$
+    for each $l$. 
+    In particular $\abs{y - a} \le p^{k-n}$
+    hence $a - y \in p^{n-k}$.
+    Furthermore since 
+    \linkto{polynomials_continuous}{$f$ is continuous}
+    and $f(y_n)$ are in shrinking balls around $0$,
+    \[f(y) = f(\lim_{n \to \infty} y_n) = 
+    \lim_{n \to \infty} f(y_n) = 0\]
+    
+    For the case $1 < m$ 
+    we reduce it to the same situation as above.
+    Suppose $f \in \Z_p[x_1,\dots, x_m]$,
+    $a \in (\Z_p)^m$,
+    $n, k \in \Z$ such that $f(a) \in p^n \Z_p$
+    and there exists $j \in \set{1, \dots, m}$ such that 
+    $v_p (\dbd{f}{x_j}(a)) = k$.
+    Then take 
+    $f(a_1,\dots, a_{j-1}, x_j, a_{j+1},\dots, a_m) \in \Z_p[x_j]$,
+    $f$ with its variables substituted for $a_i$ except for when $i = j$.
+    This satisfies the conditions of the first part
+    so we are done.
+\end{proof}
+
