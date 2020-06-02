@@ -95,7 +95,7 @@
     Thus $f(a) = g(a)$, by the property of products
     (if they agree on all the projections they are equal).
 
-    For existance we let $a \in R$ and consider the set
+    For existence we let $a \in R$ and consider the set
     \[\bigcap_{n \in \N} {\ep_n^{-1} \circ \rho_n (a)}\]
     show that it has cardinality $1$,
     and let $f$ map $a$ to this unique element.
@@ -1020,4 +1020,179 @@
     with $n = 3, k < 2, g(x) = f(x) - a$ and obtain $c^*$.
 \end{proof}
 
+\section{Multiplicative group $\Q_p^*$}
+
+\begin{dfn}[$\U_n$]
+    For each $n \in \N$
+    the map $\ep_n: \Z_p \to A_n$ is a surjective ring homomorphism,
+    thus makes sense to consider $\ep_n: \Z_p^* \to A_n^*$
+    the surjective group homomorphism of the unit groups.
+    We define the subgroup $\U_n := \ker \ep_n$.
+    We can characterise $\U_n = 1 + p^n \Z_p$ because
+    \[x \in \U_n \iff \ep_n(x - 1) = 0 \iff x - 1 \in p^n \Z_p\]
+    Note that $\U := \U_0 = \Z_p^*$ and 
+    $\U_0 / \U_1 = \Z_p^* / \ker \ep_1 \iso \F_p^*$
+    hence $\U_0 / \U_1$ is cyclic and of order $p-1$.
+\end{dfn}
+\begin{prop}
+    For any $n \in \N$, 
+    there is a unique group homomorphism 
+    $\U_{n+1} \to \U_n$ such that 
+    \begin{center}
+    \begin{tikzcd}
+        A_{n+1}^* \ar[r, "\fall{n}{n+1}"] \ar[d, "\iso"]
+        &A_n^* \ar[d, "\iso"]\\
+        \U / \U_{n + 1} \ar[r] &\U / \U_n
+    \end{tikzcd}
+    \end{center}
+    commutes, since each $A_n^*$ is isomorphic to $\U / \U_n$.
+    Thus $\U / \U_n$ form a projective system with limit 
+    \[\varprojlim \U / \U_n \iso \varprojlim A_n^* = \U\]
+    Without confusion, 
+    we label the maps $\U / \U_{n + 1} \to \U / \U_n$
+    by $\fall{n}{n+1}$ as well.
+\end{prop}
+
+\begin{prop}
+    For any $n \in \N$ the map $\U_n / \U_{n+1} \to \Z / p\Z$
+    sending $\bar{1 + p^n x} \mapsto \ep_1 (x)$ is a group 
+    isomorphism.
+    Hence if $m \le n \in \N$ then $\abs{\U_m / \U_n} = p^{n-m}$.
+\end{prop}
+\begin{proof}
+    The map is well defined: suppose 
+    $\bar{1 + p^n x} = \bar{1 + p^n y}$ then
+    there exists a $z \in \Z_p$ such that
+    \[\frac{1 + p^n x}{1 + p^n y} = 1 + p^{n+1} z\]
+    Hence $p^n(x - y) = p^{n+1} z (p^n y + 1)$ and so 
+    $\ep_1(x - y) = 0$.
+    The map is injective since 
+    \[\ep_1 (x - y) = 0 \implies x - y = p z 
+    \implies 1 + p^n x - (1 + p^n y) = p^n z
+    \implies \bar{1 + p^n x} = \bar{1 + p^n y}\]
+    The map is a group morphism because 
+    \[\bar{1 + p^n x}\bar{1 + p^n x} = \bar{1 + p^n (x + y + p^n xy)}
+    \mapsto \ep_1(x + y) = \ep_1(x) + \ep_1(y)\]
+    Note that this gives us $\abs{\U_n / \U_{n+1}} = p$.
+
+    Fix $m$ and induct on $n$. 
+    Assume $\abs{\U_m / \U_n} = = p^{n-m}$.
+    By the third isomorphism:
+    \[{\U_m / \U_n} \iso (\U_m / \U_{n+1}) / (\U_n / \U_{n+1})\]
+    Hence 
+    \[\abs{\U_m / \U_{n+1}} = 
+    \abs{\U_m / \U_n} \abs{\U_n / \U_{n+1}} = p^{n-m} p = p^{n + 1 - m}\]
+\end{proof}
+
+\begin{prop}
+    Suppose 
+    $0 \to A \to G \to B \to 0 $ 
+    is an exact sequence of finite abelian groups.
+    $|A|,|B|$ coprime.
+    Then $G \iso A \bigoplus B$ 
+    and there is a unique subgroup of $G$ 
+    isomorphic to $B$
+    given by the kernel of $b : G \to G := x \to |B| x$.
+\end{prop}
+\begin{proof}
+    By injectivity of $f$
+    It suffices to show that $f(A) \bigoplus \ker (b)$
+    and $\ker(b) \iso B$.
+    Since $|A|,|B|$ coprime there exist $\la,\mu \in \N$
+    such that $\la |A|+ \mu |B| = 1$.
+    \[x \in f(A) \cap \ker(b) \implies
+    |A|x = |B|x = 0 \implies x = \la |A| x + \mu |B| x = 0\]
+    Thus the intersection is trivial.
+    For all $y \in G$, $|B| y \in \ker(g) = f(A)$ by exactness.
+    Furthermore $|B| y \in f(A)$ so $|A| |B| y = 0$,
+    hence $|A| y \in \ker(b)$.
+    Thus
+    \[x \in G \implies x = \la |A| x + \mu |B| x\]
+    where $\la |A| x \in \ker(b)$ and $\mu |B| x \in f(A)$.
+    Hence $f(A) \bigoplus \ker (b)$.
+
+    $\res[g]{\ker(b)}$ is well-defined.
+    It is surjective since $g$ is surjective and anything that 
+    maps to $B$ under $g$ will have order dividing $|B|$.
+    It is injective because 
+    \[x \in \ker(g) \iff x \in f(A) \and |B| x = 0 
+    \iff x \in f(A) \cap \ker(b) \iff x = 0\]
+    Thus this is an isomorphism.
+    
+    If $B' \le G$ is isomorphic to $B$ then 
+    $|B| B' = 0$ and so $B' \subs \ker(b)$
+    hence they are equal because they have the same
+    finite cardinality.
+    Thus the subgroup isomorphic to $B$.
+\end{proof}
+
+\begin{prop}[$\U = \V \bigoplus \U_1$]
+    $\U = \V \bigoplus \U_1$ where 
+    $\V = \set{x \in \U \st x^{p-1} = 1}$ 
+    is the unique subgroup of $\U$ isomorphic to $\F^*_p$.
+\end{prop}
+\begin{prop}
+    For each $n \in \N$ consider 
+    \[1 \to \U_1 / \U_n \to \U / \U_n \to \F_p^* \to 1\]
+    where the second map an injection is induced by 
+    $\U_1 \subs \U_n$,
+    and the third a surjection by 
+    $\U / \U_n \iso A_n^* \to A_1^* = \F_p^*$.
+
+    Calling the second map $f$ and the third map $g$,
+    let $y = \bar{1 + x} \in \U / \U_n$ for $x \in \Z_p$
+    \[y \in f(\U_1/\U_n) \iff 1 + x \in \U_1 
+    \iff \bar{x} \in p \Z_p \iff y - 1 \in p \Z_p
+    \iff g(y) = 1\]
+    Hence the above is an exact sequence with 
+    $\U_1 / \U_n$ and $\F_p^*$ 
+    both finite due to our previous computation.
+
+    By the previous proposition there exists $\V_n$
+    a unique subgroup of $\U / \U_n$ isomorphic to $\F_p^*$
+    and $\U / \U_n \iso \U_1 / \U_n \bigoplus \F_p^*$.
+
+    Then the $\V_n$ form a projective system 
+    with maps $\V_{n+1} \to \V_n$ induced by 
+    the maps $\U / \U_{n+1} \to \U / \U_n$:
+    \begin{center}
+        \begin{tikzcd}
+            A_{n+1} \ar[r] \ar[dd] 
+            \arrow[drr, bend left = 70, "\fall{1}{n+1}"]
+            &\U/\U_n \ar[rd] \ar[dd] & &
+            \V_{n+1} \ar[ld,"\iso",swap] \ar[dd, dashed] \\
+            & & \F_p^* \\
+            A_{n} \ar[r] 
+            \arrow[urr, bend right = 70, "\fall{1}{n}", swap]
+            &\U/\U_n \ar[ru] & & 
+            \V_{n} \ar[lu,"\iso"] 
+        \end{tikzcd}
+    \end{center}
+    Since the whole diagram commutes
+    (the right triangle commutes because it uses 
+    same maps as the middle triangle)
+    the map from $\V_{n+1} \to \V_n$ 
+    is well defined and an isomorphism.
+
+    Taking the limit of the projective system 
+    $\V_n$, we obtain 
+    \[\F_p^* \iso \varprojlim \V_n \le 
+    \varprojlim \U / \U_n \iso \U\]
+    Furthermore 
+    \[\U \iso \varprojlim \U / \U_n 
+    \iso \varprojlim (\U_1 / \U_n \bigoplus \F_p^*)
+    \]
+    Since projective limits commute with direct sums %%
+    we have that 
+    \[\U \iso \varprojlim (\U_1 / \U_n) \bigoplus \varprojlim \F_p^*
+    \iso \U_1 \bigoplus \F_p^*
+    \]
+    %need to show that projective limit of \U_m / \U_n \iso \U_m
+
+    There are at most $x \in \Z_p$ that satisfy $x^{p-1} = 1$ 
+    (by sending the polynomial to $\Q_p$ and using factor theorem).
+    There at at least $p - 1$ solutions due to the existence of 
+    a subgroup isomorphic to $\F_p^*$ and using Lagrange.
+    Hence $\V$ is the unique subgroup isomorphic to $\F_p^*$.
+\end{prop}
 
