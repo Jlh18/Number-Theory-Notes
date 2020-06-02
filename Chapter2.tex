@@ -876,10 +876,12 @@
     \[ab - cd = a(b - d) + b(a - c) +(a - c)(d - b)\]
 \end{proof}
 
-\begin{prop}[?]
+\begin{prop}[General Hensel]
+    \link{gen_hensel}
     If $f \in \Z_p[x_1,\dots, x_m]$ and there exist 
     $a \in (\Z_p)^m$,
-    $n, k \in \Z$ such that $f(a) \in p^n \Z_p$
+    $n, k \in \Z$ such that $0 \le 2k < n$ and 
+    $f(a) \in p^n \Z_p$
     and there exists $j \in \set{1, \dots, m}$ such that 
     $v_p (\dbd{f}{x_j}(a)) = k$,
     then there exists $y \in (\Z_p)^m$ such that
@@ -925,4 +927,97 @@
     This satisfies the conditions of the first part
     so we are done.
 \end{proof}
+
+\begin{cor}[Hensel]
+    \link{hensel}
+    Let $f \in \Z_p [x_1,\dots,x_m]$, 
+    suppose there exists $c \in (p \Z_p)^m$
+    such that $\ep_1(f(c)) = 0$ and 
+    there exists a $j \in \set{1,\dots m}$
+    such that $\dbd{f}{x_j}(c) \ne 0$
+    then there exists a $c^* \in (\Z_p)^m$ 
+    such that $f(c^*) = 0$ and 
+    $\ep_1(c^* - c) = 0$.
+\end{cor}
+\begin{proof}
+    Apply \linkto{gen_hensel}{general Hensel with}
+    $n = 1$ and $k = 0$.
+\end{proof}
+
+\begin{cor}[Quadratic forms for $p \ne 2$]
+    Suppose $p \ne 2$, 
+    $A \in (p\Z_p)^{n \times n}$
+    such that for all 
+    $i,j \in \set{1,\dots,m}, A_{ij} = A_{ji}$
+    and $\det A$ a unit. 
+    Let
+    \[
+        f = x^T A x = 
+        \sum_{i = 1}^m \sum_{j = 1}^m A_{ij} x_i x_j
+        \in \Z_p[x_1,\dots,x_m]
+    \]
+    If for any $a \in \Z_p$,
+    there exists primitive $c \in (\Z_p)^m$
+    such that $ep_1(f(c) - a) = 0$
+    then there exists $c^* \in (\Z_p)^m$
+    such that $f(c^*) = 0$ and $\ep_1(c^* - c) = 0$.   
+\end{cor}
+\begin{proof}
+    By \linkto{hensel}{Hensel} applied to $g(x) := f(x) - a$
+    it suffices to show that
+    there exists a $j \in \set{1,\dots, m}$ such that 
+    $\dbd{f}{x_j}(c) \ne 0$.
+    Suppose not.
+    Then for any $j \in \set{1,\dots, m}$
+    \[0 = \dbd{f}{x_j}(c) = 2 \sum_{i \in S} A_ij c_i\]
+    Since $p \ne 2$ we have that for all $j$
+    \[0 = \sum_{i \in S} \ep_1(A_ij) \ep_1(c_i) = 
+    \ep_1 (A_j) \ep_1(c)\]
+    Hence \[0 = \ep_1 (A) \ep_1 (c)\]
+    Since the determinant of $A$ is a unit,
+    the determinant of $\ep_1 (A)$ is a unit
+    (determinant commutes with ring morphisms).
+    Thus multiplying by the adjugate of $\ep_1 (A)$ 
+    we obtain $0 = \ep_1(c)$.
+    This is a contradiction as $c$ is primitive.
+\end{proof}
+
+\begin{cor}[Quadratic forms for $\Z_2$]
+    Suppose $A \in (2 \Z_2)^{n \times n}$
+    such that for all 
+    $i,j \in \set{1,\dots,m}, A_{ij} = A_{ji}$. 
+    Let
+    \[
+        f = x^T A x = 
+        \sum_{i = 1}^m \sum_{j = 1}^m A_{ij} x_i x_j
+        \in \Z_2[x_1,\dots,x_m]
+    \]
+    If for any $a \in \Z_2$,
+    there exists primitive $c \in (\Z_2)^m$
+    such that $ep_3(f(c) - a) = 0$ and
+    \[\det(A) \text{ is a unit of } \Z_2 \quad \OR \quad 
+    \exists j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) \ne 0\]
+    then there exists $c^* \in (\Z_p)^m$
+    such that $f(c^*) = 0$ and $\ep_1(c^* - c) = 0$.   
+\end{cor}
+\begin{proof}
+    We show that 
+    \[\det A \text{ is a unit of } \Z_2 \quad \implies \quad 
+    \exists j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) \ne 0\]
+    Suppose not.
+    \begin{align*}
+        &\quad \forall j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) = 0\\
+        &\implies \forall j, \ep_2(2 \sum A_{ij} c_i) = 0\\
+        &\implies \forall j, 2 \ep_2(A_j)\ep_2(c) = 0\\
+        &\implies 2 \ep_2(A)\ep_2(c) = 0\\
+        &\implies 2 \ep_2(c) = 0 \quad \text{since } 
+        \det A \text{is a unit}\\
+        &\implies \ep_2(c) = 0 \OR \ep_2(c) = 2
+        &\implies \ep_1(c) = 0 \quad \text{ a contradiction}
+    \end{align*}
+    Hence in either case $\exists j, \ep_2(\dbd{f}{x_j}(c)) \ne 0$
+    We can then apply \linkto{gen_hensel}{general Hensel} 
+    with $n = 3, k < 2, g(x) = f(x) - a$ and obtain $c^*$.
+\end{proof}
+
 
