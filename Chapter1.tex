@@ -19,7 +19,7 @@
     is an injection.
 \end{prop}
 \begin{proof}
-    Easy to show $\si_p(0) = 0, \Si_p (1) = 1$. 
+    Easy to show $\si_p(0) = 0, \si_p (1) = 1$. 
     Also
     \[\si_p (ab) = (ab)^p = a^p b^p = \si_p(a) \si_p(b)\]
     \[\si_p (a +b) = (a + b)^p = a^p + b^p = \si(a) + \si(b)\]
@@ -220,7 +220,7 @@
     Suppose for all $f \in I \subs K[x_1, \dots , x_n]$ (finite), 
     \[\sum_{f \in I} \deg f < n\]
     Then 
-    \[\abs{\V(I)} \ontop{p}{=} 0\]
+    \[\abs{\V(I)} = 0 \mod p\]
 \end{prop}
 \begin{proof}
     Consider $P := \prod_{f \in I} (1 - f^{q-1})$.
@@ -240,7 +240,7 @@
     \]
     Let 
     $S : K[x_1 ,\dots, x_n] \to K := f \to \sum_{x \in K^n} f(x)$
-    Then $S(P) = \sum_{x \in V(I)} 1 \ontop{p}{=} \abs{\V(I)}$.
+    Then $S(P) = \sum_{x \in V(I)} 1 = \abs{\V(I)} \mod p$.
     Thus we need show that $S(P) = 0$.
 
     \[\deg P = \sum_{f \in I} (q - 1)\deg f 
@@ -250,26 +250,28 @@
     \[P = \sum_{i \in T} \la_i \prod_{j = 1}^n x_j^{u_{ij}}\]
     and for all $i \in T$, $\sum_{j = 1}^n u_{ij} < (q - 1) n$.
     Then 
-    \begin{align}
+    \begin{align*}
         S(P) &= \sum_{x \in K^n} P(x)\\
             &= \sum_{x\in K^n} \sum_{i \in T} \la_i 
             \prod_{j = 1}^n x_j^{u_{ij}}\\
             &= \sum_{i \in T} \la_i \sum_{x\in K^n} 
             \prod_{j = 1}^n x_j^{u_{ij}}\\
-    \end{align}
+    \end{align*}
     Let $i \in T$ then there exists a $k$ such that 
     $u_{ik} < q - 1$ so
-    \begin{align}
+    \begin{align*}
         & \sum_{x\in K^n} \prod_{j = 1}^n x_j^{u_{ij}}\\
-        = & \sum_{x_1 \in K} \cdots \sum_{x_n \in K} 
+        &= \sum_{x_1 \in K} \cdots \sum_{x_n \in K} 
         \prod_{j = 1}^n x_j^{u_{ij}}\\
-        = & \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} \cdots \sum_{x_n \in K} 
+        &= \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} 
+        \cdots \sum_{x_n \in K} 
         \prod_{j \ne k} x_j^{u_{ij}} \sum_{x_k \in K} x_k^{u_{ik}}\\
-        = & \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} \cdots \sum_{x_n \in K} 
+        &= \sum_{x_1 \in K} \cdots \cancel{\sum_{x_k \in K}} 
+        \cdots \sum_{x_n \in K} 
         \prod_{j \ne k} x_j^{u_{ij}} 0
-    \end{align}
+    \end{align*}
     The last part using the \linkto{power_sum}{power sum lemma}.
-    Hence $\abs{\V(I)} \ontop{p}{=} S(P) = 0$
+    Hence $\abs{\V(I)} = S(P) = 0 \mod p$
 \end{proof}
 
 \begin{cor}[Non-trivial vanishing]
@@ -293,24 +295,42 @@
 \end{cor}
 
 \section{Quadratic reciprocity}
-\begin{prop}[Exact sequence]
-    If $K$ is a finite field,
+
+\begin{dfn}[Legendre symbol]
+    If $p$ is prime that is not $2$ and $x \in \F_p$ then
+    \[\legendre{x}{p} := 
+    \begin{cases}
+        x^{\frac{p-1}{2}} &, x \text{ unit}\\
+        0 &, x = 0
+    \end{cases}\]
+    Check that for each $p$ this is a group morphism 
+    when restricted to the units
+    $\F_p^* \to \<-1\>$.
+\end{dfn}
+
+\begin{prop}[The Legendre symbol finds squares]
+    \link{finding_squares}
+    If $K$ is a finite field with $\Char{K} = p$,
     \begin{itemize}
-        \item If $\Char{K} = 2$ then all elements are square.
-        \item If $\Char{K} \ne 2$ 
+        \item If $p = 2$ then all elements are square.
+        \item If $p \ne 2$ 
         then the non-zero squares form a subgroup of index $2$,
         and is the kernel of the group morphism 
-        $x \to x^{\frac{q-1}{2}}$ into $\<-1\>$.
+        $\legendre{\star}{p} : x \to x^{\frac{q-1}{2}}$ into $\<-1\>$.
     \end{itemize}
-    I can't be bothered to make the exact sequence.%
+    So the following sequence is exact.
+    \begin{cd}
+        1 \ar[r] & (K^*)^2 \ar[r, "\subs"] & K^* 
+        \ar[r, "\legendre{\star}{p}"] & \<-1\> \ar[r]& 1
+    \end{cd}
 \end{prop}
 \begin{proof}~
     \begin{itemize}
-        \item If $\Char{K} = 2$ then the 
+        \item If $p = 2$ then the 
         \linkto{frobenius}{Frobenius map} $\si_2 : x \mapsto x^2$
         is an automorphism of $K$. 
         Hence the preimage of any element squares to that element.
-        \item If $\Char{K} \ne 2$ then generate $K^* = \<g\>$ 
+        \item If $p \ne 2$ then write $K^* = \<g\>$ 
         since it is cyclic.
         The map $x \to x^{\frac{q-1}{2}}$ 
         has kernel $\set{x \in K \st x \text{ square}}$ since
@@ -331,31 +351,24 @@
     \end{itemize}
 \end{proof}
 
-\begin{dfn}[Legendre symbol]
-    If $p$ is prime that is not $2$ and $x \in \F_p$ then
-    \[\legen{x}{p} := 
-    \begin{cases}
-        x^{\frac{p-1}{2}} &, x \text{ unit}\\
-        0 &, x = 0
-    \end{cases}\]
-    Check that for each $p$ this is a homomorphism $\F_p \to \<-1\>$.
-\end{dfn}
-
 \begin{dfn}[$\ep(n)$]
-    If $n \in \Z$ is odd 
-    \[\ep(n):=\frac{n-1}{2} (\mathrm{mod} 2)\]
+    If $n \in \Z$ is odd and $p \ne 2$
+    \[\ep(n):=\frac{n-1}{2} \mod 2\]
+    \[\om(n):=\frac{n^2 - 1}{8}  \mod 2\]
 \end{dfn}
 
 \begin{prop}[Computations]
+    If $p \ne 2$ then
     \begin{align*}
-        \legen{1}{p} =& 1\\
-        \legen{-1}{p} =& (-1)^{\ep(p)}
+        \legendre{1}{p} =& 1\\
+        \legendre{-1}{p} =& (-1)^{\ep(p)}\\
+        \legendre{2}{p} =&(-1)^{\om(p)}
     \end{align*}
 \end{prop}
 
 \begin{prop}[Quadratic reciprocity]
     Let $l \ne p$ be primes that aren't $2$.
-    Then \[\legen{l}{p}\legen{p}{l} = (-1)^{\ep(l)\ep(p)}\]
+    Then \[\legendre{l}{p}\legendre{p}{l} = (-1)^{\ep(l)\ep(p)}\]
 \end{prop}
 \begin{proof}
     Let $w$ be order $l$ element of $\Om$,
@@ -363,55 +376,55 @@
     For $x \in \F_l$ write $w^x$ to be $w^r$ for any $r \in \Z$ such that
     $x = \bar{r} \in \F_l$ (independant of choice of $r$ by $w^l = 1$).
     Let 
-    \[y = \sum_{x\in \F_l} \legen{x}{l} w^x \in \Om\]
+    \[y = \sum_{x\in \F_l} \legendre{x}{l} w^x \in \Om\]
 
     We first show that $y^2 = (-1)^{\ep(l)} \bar{l}$, 
     where $\bar{l} \in \F_p$.
     \begin{align*}
         y^2 =& 
-        (\sum_{x \in \F_l} \legen{x}{l} w^x)
-        (\sum_{y \in \F_l} \legen{y}{l} w^y)\\
+        (\sum_{x \in \F_l} \legendre{x}{l} w^x)
+        (\sum_{y \in \F_l} \legendre{y}{l} w^y)\\
         =& \sum_{x \in \F_l} \sum_{y \in \F_l} 
-        \legen{x}{l} w^x \legen{y}{l} w^y\\
-        =& \sum_{x \in \F_l} \sum_{y \in \F_l} \legen{xy}{l} w^{x+y}\\
-        =& \sum_{u \in \F_l} \sum_{x \in \F_l} \legen{x(u - x)}{l} w^u
+        \legendre{x}{l} w^x \legendre{y}{l} w^y\\
+        =& \sum_{x \in \F_l} \sum_{y \in \F_l} \legendre{xy}{l} w^{x+y}\\
+        =& \sum_{u \in \F_l} \sum_{x \in \F_l} \legendre{x(u - x)}{l} w^u
     \end{align*}
     Case on what $x$ is:
     \begin{align*}
-        x \ne 0 \implies& \legen{x(u - x)}{l} =& \legen{xu - x^2}{l}\\
-            & =& \legen{x^2}{l} \legen{-1}{l} \legen{1-\frac{u}{x}}{l}\\
-            & =& x^{p - 1} \legen{-1}{l} \legen{1 - \frac{u}{x}}{l}\\
-            & =& (-1)^{\ep(l)} \legen{1 - \frac{u}{x}}{l}
+        x \ne 0 \implies& \legendre{x(u - x)}{l} =& \legendre{xu - x^2}{l}\\
+            & =& \legendre{x^2}{l} \legendre{-1}{l} \legendre{1-\frac{u}{x}}{l}\\
+            & =& x^{p - 1} \legendre{-1}{l} \legendre{1 - \frac{u}{x}}{l}\\
+            & =& (-1)^{\ep(l)} \legendre{1 - \frac{u}{x}}{l}
     \end{align*}
-    If $x = 0$ then clearly $\legen{x(u - x)}{l} = 0$.
+    If $x = 0$ then clearly $\legendre{x(u - x)}{l} = 0$.
     Hence 
     \[
         y^2 = \sum_{u \in \F_l} \sum_{x \in \F_l^*} 
-        (-1)^{\ep(l)} \legen{1 - \frac{u}{x}}{l}
+        (-1)^{\ep(l)} \legendre{1 - \frac{u}{x}}{l}
         = (-1)^{\ep(l)} \sum_{u \in \F_l}  \sum_{x \in \F_l^*}
-        \legen{1 - \frac{u}{x}}{l}
+        \legendre{1 - \frac{u}{x}}{l}
     \]
     Given $x \ne 0$, case on what $u$ is:
     \begin{align*}
-        u = 0 \implies &\sum_{x \in \F_l^*} \legen{1 - \frac{u}{x}}{l} \\
-        = &\sum_{x \in \F_l^*} \legen{1}{l} \\
+        u = 0 \implies &\sum_{x \in \F_l^*} \legendre{1 - \frac{u}{x}}{l} \\
+        = &\sum_{x \in \F_l^*} \legendre{1}{l} \\
         = &\sum_{x \in \F_l^*} 1\\
         = & \bar{l} -1
     \end{align*}
     \begin{align*}
-        u \ne 0 \implies &\sum_{x \in \F_l^*} \legen{1 - \frac{u}{x}}{l}\\
-            = &\sum_{x \in F_l^*} \legen{1 - \frac{1}{x}}{l}\\
-            = &\sum_{s \in \F_l^*} \legen{1 - s}{l}\\
-            = &\sum_{s \in \F_l \setminus \set{1}} \legen{s}{l}\\
-            = &\sum_{s \in \F_l} \legen{s}{l} - \legen{1}{l}\\
+        u \ne 0 \implies &\sum_{x \in \F_l^*} \legendre{1 - \frac{u}{x}}{l}\\
+            = &\sum_{x \in F_l^*} \legendre{1 - \frac{1}{x}}{l}\\
+            = &\sum_{s \in \F_l^*} \legendre{1 - s}{l}\\
+            = &\sum_{s \in \F_l \setminus \set{1}} \legendre{s}{l}\\
+            = &\sum_{s \in \F_l} \legendre{s}{l} - \legendre{1}{l}\\
             = & - 1 
     \end{align*}
-    Since the index of the kernel of $\legen{\star}{l}$ is $2$,
+    Since the index of the kernel of $\legendre{\star}{l}$ is $2$,
     and the cosets have equal cardinality.
     Hence 
     \begin{align*}
         y^2 (-1)^{\ep(l)} &= \sum_{u \in \F_l}  \sum_{x \in \F_l^*}
-            \legen{1 - \frac{u}{x}}{l}\\
+            \legendre{1 - \frac{u}{x}}{l}\\
             &= \bar{l} - 1 - \sum_{u \in \F_l^*} w^u\\
             &= \bar{l} - (1 + w + w^2 + \dots + w^l)
     \end{align*}
@@ -419,23 +432,23 @@
     Note that $0 = w^l - 1 = (w+1)(1+w + \dots + w^l)$.
     Hence $1+w + \dots + w^l = 0$ and $y^2 = (-1)^{\ep(l)} \bar{l}$.
 
-    Next we show that $y^{p - 1} = \legen{p^-1}{l}$.
+    Next we show that $y^{p - 1} = \legendre{p^-1}{l}$.
     \begin{align*}
-        y^p = & \sum_{x \in \F_l} {\legen{x}{l}}^p w^xp & \text{ `Freshman's dream'}\\
-            = & \sum_{x \in \F_l} {\legen{x}{l}} w^xp & 
-            \legen{x}{l}= \pm 1 \text{ and } p \text{ is odd}\\
-            = & \sum_{z \in \F_l} \legen{z p^{-1}}{l} w^z\\
-            = & \legen{p^{-1}}{l}(\sum_{z \in \F_l} \legen{z}{l} w^z)\\
-            = & \legen{p^{-1}}{l} y
+        y^p = & \sum_{x \in \F_l} {\legendre{x}{l}}^p w^xp & \text{ `Freshman's dream'}\\
+            = & \sum_{x \in \F_l} {\legendre{x}{l}} w^xp & 
+            \legendre{x}{l}= \pm 1 \text{ and } p \text{ is odd}\\
+            = & \sum_{z \in \F_l} \legendre{z p^{-1}}{l} w^z\\
+            = & \legendre{p^{-1}}{l}(\sum_{z \in \F_l} \legendre{z}{l} w^z)\\
+            = & \legendre{p^{-1}}{l} y
     \end{align*}
-    Hence \[y^{p - 1} = \legen{p^{-1}}{l} = (\legen{p{l}})^{-1}\]
+    Hence \[y^{p - 1} = \legendre{p^{-1}}{l} = (\legendre{p{l}})^{-1}\]
     thus 
     \begin{align*}
-        \legen{l}{p}\legen{p}{l} =& \legen{l}{p} y^{1 - p}\\
-        =& \legen{l}{p} (y^2)^{\frac{1 - p}{2}}\\
-        =& \legen{l}{p} ((-1)^{\ep(l)} \bar{l})^{\frac{1 - p}{2}}\\
-        =& \legen{l}{p} (\legen{(-1)^{\ep(l)}l}{p})^{-1}\\
-        =& (\legen{(-1)^{\ep(l)}}{p})^{-1}\\
+        \legendre{l}{p}\legendre{p}{l} =& \legendre{l}{p} y^{1 - p}\\
+        =& \legendre{l}{p} (y^2)^{\frac{1 - p}{2}}\\
+        =& \legendre{l}{p} ((-1)^{\ep(l)} \bar{l})^{\frac{1 - p}{2}}\\
+        =& \legendre{l}{p} (\legendre{(-1)^{\ep(l)}l}{p})^{-1}\\
+        =& (\legendre{(-1)^{\ep(l)}}{p})^{-1}\\
         =& (-1)^{\ep(l)\ep(p)}
     \end{align*}
 \end{proof}

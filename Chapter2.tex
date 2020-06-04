@@ -6,16 +6,16 @@
     is called a projective system.
 \end{dfn}
 
-\begin{dfn}[Projective system $A$]
+\begin{dfn}[Projective system for $p$-adic integers]
     Define a contravariant functor $A : (\N,\le) \to \RING$ 
     such that for each $n$
-    \[A_n := \Z / p^n \Z \quad \text{ and } 
-    \quad \pi_n : \Z \to A_n \text{ is the projection}\]
+    \[n \mapsto \Z / p^n \Z \quad \text{ and } 
+    \quad \pi_n : \Z \to \zmo{n} \text{ is the projection}\]
     and for any $n$ such that $1 \le n$, 
     there exists a surjective ring morphism 
-    $\phi_n : A_n \to A_{n-1}$ such that
+    $\phi_n : \zmo{n} \to \zmo{n-1}$ such that
     $\phi_n \circ \pi_n = \pi_{n-1}$ and 
-    $\ker(\phi_n) = p^{n-1} A_n$.
+    $\ker(\phi_n) = p^{n-1} \zmo{n}$.
 \end{dfn}
 \begin{ex}
     Check that such a $\phi_n$ exists.
@@ -23,28 +23,28 @@
 
 \begin{dfn}[$p$-adic integers]
     Let 
-    \[\Z_p = \{x \in \prod_{n \in \N} A_n \st 
-    (\forall n \in \N, x_n \in A_n) \AND
+    \[\Z_p = \{x \in \prod_{n \in \N} \zmo{n} \st 
+    (\forall n \in \N, x_n \in \zmo{n}) \AND
     (\forall n > 0, \phi_n(x_n) = x_{n-1})\}\]
     be the projective limit.
     Define addition and multiplication pointwise. 
     Verify that this $\Z_p$ is a ring with $0 = (0)_{n \in \N}$
     and $1 = (1)_{n \in \N}$.
 
-    For each $n \in \N$ let $\ep_n : \Z_p \to A_n$ be the 
+    For each $n \in \N$ let $\ep_n : \Z_p \to \zmo{n}$ be the 
     ring morphisms mapping $x \mapsto x_n$.
     Note that by definition $\phi_n \circ \ep_n = \ep_{n-1}$.
 
     In addition,
-    provide each $A_n$  with the discrete toplogy,
-    giving $\prod_{n \in \N} A_n$ the product topology
+    provide each $\zmo{n}$  with the discrete toplogy,
+    giving $\prod_{n \in \N} \zmo{n}$ the product topology
     and $\Z_n$ the subset topology.
 \end{dfn}
 
 \begin{prop}[$\Z_p$ is compact]
     \link{Z_p_compact}
-    Since each $A_n$ is finite, 
-    each $A_n$ is compact.
+    Since each $\zmo{n}$ is finite, 
+    each $\zmo{n}$ is compact.
     Hence by Tychonoff's theorem
     the product is compact.
     Since closed in compact is compact
@@ -52,26 +52,26 @@
 
     We want to write $\Z_p$ as the intersection of 
     closed sets 
-    \[D_k:= \set{x \in \prod_{n\in\N} A_n \st \phi_k (x_k) = x_{k-1}}\]
+    \[D_k:= \set{x \in \prod_{n\in\N} \zmo{n} \st \phi_k (x_k) = x_{k-1}}\]
     for $k \in \N$.
     Clearly 
     \[\bigcap_{k\in\N} D_k = \Z_p\]
     and 
-    \[D_k = \bigcup_{x_{k-1} \in A_{k-1}} \brkt{\ep_{k-1}^{-1}(x_{k-1}) 
+    \[D_k = \bigcup_{x_{k-1} \in \zmo{k-1}} \brkt{\ep_{k-1}^{-1}(x_{k-1}) 
     \cap \bigcup 
-    \set{\ep_k^{-1}(x_k) \st x_k \in A_k \AND \phi_k(x_k) = x_{k-1}}}\]
-    Since each $\set{x_k}$ is closed in $A_k$, 
+    \set{\ep_k^{-1}(x_k) \st x_k \in \zmo{k} \AND \phi_k(x_k) = x_{k-1}}}\]
+    Since each $\set{x_k}$ is closed in $\zmo{k}$, 
     each preimage $\ep_k^{-1}(x_k)$ is closed.
     Thus the finite union of the preimages
     \[\bigcup 
-    \set{\ep_k^{-1}(x_k) \st x_k \in A_k \AND \phi_k(x_k) = x_{k-1}}\]
+    \set{\ep_k^{-1}(x_k) \st x_k \in \zmo{k} \AND \phi_k(x_k) = x_{k-1}}\]
     is closed.
-    Since each $\set{x_{k-1}}$ is closed in $A_{k-1}$, 
+    Since each $\set{x_{k-1}}$ is closed in $\zmo{k-1}$, 
     each preimage $\ep_{k-1}^{-1}(x_{k-1})$ is closed.
     Thus intersection 
     \[\brkt{\ep_{k-1}^{-1}(x_{k-1}) 
     \cap \bigcup 
-    \set{\ep_k^{-1}(x_k) \st x_k \in A_k \AND \phi_k(x_k) = x_{k-1}}}\]
+    \set{\ep_k^{-1}(x_k) \st x_k \in \zmo{k} \AND \phi_k(x_k) = x_{k-1}}}\]
     is closed.
     Hence the finite union is closed and $D_k$ is closed.
     Arbitrary intersection of closed is closed so $\Z_p$ 
@@ -80,7 +80,7 @@
 
 \begin{prop}[Universal property of $\Z_p$]
     Suppose $R$ is a ring with ring morphisms 
-    $\rho_n : R \to A_n$ for each $n \in \N$
+    $\rho_n : R \to \zmo{n}$ for each $n \in \N$
     such that for each $n > 0$, 
     $\phi_n \circ \rho_n = \rho_{n-1}$.
     Then there exists a unique ring morphism $f : R \to \Z_p$
@@ -90,7 +90,7 @@
 \begin{proof}
     If there exists such a map then it is unique:
     suppose $f,g$ both satisfy the given properties.
-    Then for any $n$ and any $a \in R$
+    Then for any $n$ and any $a \in R$,
     $\ep_n \circ f (a)= \rho_n (a) = \ep_n \circ g (a)$.
     Thus $f(a) = g(a)$, by the property of products
     (if they agree on all the projections they are equal).
@@ -141,12 +141,13 @@
     Thus $x = 0$.
 \end{proof}
 
-\begin{prop}[Multiplying by $p^n$ is injective 
-    and $x_n = 0$ implies $x \in p^n \Z_p$]
+\begin{prop}[The kernel of $\ep_n$]
     \link{multiplying_p_n_injective}
+    Multiplying by $p^n$ is injective 
+    and $x_n = 0$ implies $x \in p^n \Z_p$
     \begin{center}\begin{tikzcd}
-        0 \ar[r] &\Z_p \ar[r, "p^n \cdot"] & 
-        \Z_p \ar[r, "\ep_n"] & A_n \ar[r] & 0
+        0 \ar[r] &\Z_p \ar[r, "p^n \times"] & 
+        \Z_p \ar[r, "\ep_n"] & \zmo{n} \ar[r] & 0
     \end{tikzcd}\end{center}
     is a short exact sequence of abelian groups.
 \end{prop}
@@ -169,7 +170,7 @@
 
     To check that the $p^n \Z_p = \ker(\ep_n)$
     we note that for any $x \in \Z_p$, 
-    $\ep_n (p^n x) = p^n x_n = 0 \in A_n$.
+    $\ep_n (p^n x) = p^n x_n = 0 \in \zmo{n}$.
     Hence $p^n \Z_p \subs \ker(\ep_n)$.
     For the other direction suppose $\ep_n(x)= 0$.
     Suppose $n \le m \in \Z$.
@@ -204,7 +205,7 @@
     \link{Z_p_non_zero_decomp}
     If $x \in \Z_p$ then
     \begin{enumerate}
-        \item $x_n \in A_n$ is a unit if and only if $x_n \notin p A_n$.
+        \item $x_n \in \zmo{n}$ is a unit if and only if $x_n \notin p \zmo{n}$.
         \item $x \in \Z_p$ is a unit if and only if $x \notin p \Z_n$.
         \item For any $ x \in \Z_p \setminus \set{0}$ there exist 
             unique $n \in \N$ and $u \in \Z_p$ such that
@@ -213,18 +214,18 @@
 \end{prop}
 \begin{proof}~
     \begin{enumerate}
-        \item If $x_n$ is a unit and $x_n \in p A_n$ then
-            write $x_n = p y_n $ for $y_n \in A_n$.
+        \item If $x_n$ is a unit and $x_n \in p \zmo{n}$ then
+            write $x_n = p y_n $ for $y_n \in \zmo{n}$.
             We see that $p$ is a unit since $x_n ^{-1} p y_n = 1$.
             However $p$ is nilpotent since $p^n = 0$ a contradiction.
-            Hence $x_n \notin p A_n$.
-            Conversely if $x_n \notin p A_n$ then
+            Hence $x_n \notin p \zmo{n}$.
+            Conversely if $x_n \notin p \zmo{n}$ then
             supposing $x_1 = 0$ deduces $x \in p \Z_p$ by 
             the \linkto{multiplying_p_n_injective}{
                 previous proposition}.
             Hence $x_n \in p A$ a contradiction.
-            Thus $x_1 \ne 0 \in A_1$, a field,
-            so $x_1$ is a unit in $A_1$.
+            Thus $x_1 \ne 0 \in \zmo1$, a field,
+            so $x_1$ is a unit in $\zmo1$.
             Hence there exist $x_\Z,y_\Z,z_\Z \in \Z$
             such that $\io(x_\Z) = x$ and 
             \begin{align*}
@@ -232,10 +233,10 @@
                 \implies \pi_n(x_\Z y_\Z + p z_\Z) =& 1\\
                 \implies x_n y_n + p z_n =& 1\\
                 \implies x_n y_n (1 + \dots + (p z_n)^{n-1}) &= 
-                1 - (pn)^z = 1 \in A_n\\
+                1 - (pn)^z = 1 \in \zmo{n}\\
                 \implies x_n \text{ is a unit}
             \end{align*}
-            Hence $x_n$ is a unit if and only if $x_n \notin p A_n$.
+            Hence $x_n$ is a unit if and only if $x_n \notin p \zmo{n}$.
         \item If $x$ is a unit of $\Z_p$
             then in particular $x_1$ is a unit.
             Suppose $x \in p \Z_p$ then $x_1 = 0$ by the 
@@ -248,12 +249,12 @@
             \linkto{multiplying_p_n_injective}{previous proposition}
             $x_1 \ne 0$.
             For any $n \in \N$, 
-            if $x_n \in A_n$ then 
+            if $x_n \in \zmo{n}$ then 
             $x_1 = \phi_n \circ \cdots \phi_2 x_n = 0$
             which is false.
-            Hence for any $n \in \N$, $x_n \notin p A_n$
+            Hence for any $n \in \N$, $x_n \notin p \zmo{n}$
             which by the first part implies there exists
-            a unique $y_n \in A_n$, $x_n y_n = 1$.
+            a unique $y_n \in \zmo{n}$, $x_n y_n = 1$.
             We show that $y := (y_n)_{n \in \N}$ is the inverse of $x$
             in $\Z_p$.
             To show that $y \in \Z_p$ let $n \in \N$.
@@ -261,7 +262,7 @@
             \phi_{n+1}(x_{n+1})\phi_{n+1}(y_{n+1})
             \phi_{n+1}(x_{n+1} y_{n+1}) = \phi(1) = 1\]
             Hence $\phi_{n+1} (y_{n+1}) = y_n$ 
-            by uniqueness of inverses in $A_n$.
+            by uniqueness of inverses in $\zmo{n}$.
             To show that $x y = 1$ note that
             for any $n \in \N$, 
             $\ep_n(xy) = x_n x_y = 1$.
@@ -326,7 +327,7 @@
     $\Z_p$ is an integral domain.
 \end{cor}
 \begin{proof}
-    Let $x, y \in \Z_p$ be such that $xy = 0$.
+    Let $x, y \in \Z_p$ with $xy = 0$.
     Suppose for a contradiction both $x, y$ are non-zero.
     Then $v_p(x), v_p(y) \in \N$ hence
     $\infty = v_p(x y) = v_p(x) + v_p(y) \in \N$, 
@@ -371,7 +372,7 @@
 
 \begin{prop}[Induced topologies are equivalent]
     The metric topology $\TT_0$ is the same as the
-    subspace topology $\TT_1$ from $\prod_{n \in \N} A_n$.
+    subspace topology $\TT_1$ from $\prod_{n \in \N} \zmo{n}$.
 \end{prop}
 \begin{proof}
     We first show that the neighbourhoods of points are the same.
@@ -383,9 +384,9 @@
     \begin{align*}
         N_1(a) 
         &= \< U \cap \Z_p \st a \in U \in 
-        \text{ product topology on $\prod A_n$}\>\\
+        \text{ product topology on $\prod \zmo{n}$}\>\\
         &=\< \ep_n^{-1} (U) \cap \Z_p \st \exists n \in \N, 
-        a_n \in U \subs A_n\>\\
+        a_n \in U \subs \zmo{n}\>\\
         &= \< U \subs \Z_p \st \exists n \in \N,
         a + \ker(\ep_n) \subs U\>\\
         &= \< U \subs \Z_p \st \exists n \in \N,
@@ -435,7 +436,7 @@
     Let $n \in \N$ be such that $N \le n$.
     Then $\ep_n(x - y(n)) = 0$ 
     \linkto{multiplying_p_n_injective}{implies}
-    $x - y(n) \in p^n A_n$  
+    $x - y(n) \in p^n \zmo{n}$  
     and so 
     \[\abs{x - y(n)} = p^{-v_p(x - y(n))} \le p^{-n}
     \le p^{-N} < \de\]
@@ -472,7 +473,8 @@
     a ring morphism and that the diagram above commutes.
 \end{proof}
 
-\begin{prop}
+\begin{prop}[Decomposition of units in $\Q_p$]
+    \link{Q_p_non_zero_decomp}
     $\Q_p \iso \Z_p[\frac{1}{p}]$ canonically and any unit of $\Q_p$
     can be uniquely written in the form $p^n u$ for $n \in \Z$
     and $u$ a unit in the image of $\Z_p$ under the isomorphism. 
@@ -659,10 +661,10 @@
 \begin{prop}[Vanishing commutes with limit]
     \link{vanishing_commutes_with_limit}
     Let $I \subs \Z_p [x_1, \dots, x_m]$.
-    Then \[\V(I,\Z_p) \iso \varprojlim_{n \in \N} \V(\ep_n(I),A_n)\]
+    Then \[\V(I,\Z_p) \leftrightarrow \LIM[n \in \N] \V(\ep_n(I),\zmo{n})\]
     via $(a_1,\dots, a_m) \in \V(I)$
     being sent to
-    $(\ep_n(a_1),\dots, \ep_n(a_m))_{n\in\N} \in \varprojlim \V(\ep_n(I),A_n)$.
+    $(\ep_n(a_1),\dots, \ep_n(a_m))_{n\in\N} \in \varprojlim \V(\ep_n(I),\zmo{n})$.
 
     In particular $\V(I)$ is non-empty
     if and only if for all $n \in \N$, 
@@ -672,18 +674,18 @@
 \begin{proof}
     Note that $(a_1, \dots, a_m) \in (\Z_p)^m$, 
     if and only if for all $i \in \set{1, \dots, m}$,
-    $a_i \in \varprojlim A_n$
+    $a_i \in \varprojlim \zmo{n}$
     if and only if 
     for all $i \in \set{1, \dots, m}, n \in \N$,
-    $\ep_n(a_i) \in A_n$ and $\fall{n}{n+1}\ep_{n+1}(a_i) = \ep_n(a_i)$.
+    $\ep_n(a_i) \in \zmo{n}$ and $\fall{n}{n+1}\ep_{n+1}(a_i) = \ep_n(a_i)$.
     This is if and only if for all $n \in \N$,
-    \[(\ep_n(a_1), \dots, \ep_n(a_m)) \in A_n^m
+    \[(\ep_n(a_1), \dots, \ep_n(a_m)) \in \zmo{n}^m
     \text{and} \fall{n}{n+1}(\ep_{n+1}(a_1), 
     \dots, \ep_{n+1}(a_m)) = \ep_n(a_i)\]
     which is if and only if 
-    $(\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in \varprojlim (A_n^m)$.
+    $(\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in \varprojlim (\zmo{n}^m)$.
     Hence we have an isomorphism of rings 
-    \[(\Z_p)^m = (\varprojlim{A_n})^m \iso \varprojlim (A_n^m)\]
+    \[(\Z_p)^m = (\varprojlim{\zmo{n}})^m \iso \varprojlim (\zmo{n}^m)\]
 
     We first show that the functor $V$ mapping $n \mapsto V_n$ 
     and $n \le m$ to $\fall{n}{m} : V_m \to V_n$
@@ -692,7 +694,7 @@
     \[\forall n \in \N, \forall a \in V_{n+1}, 
     \fall{n}{n+1} a \in V_n\]
     Indeed if $a \in V_{n+1}$ then \footnote{
-        For $\phi: A \to B we $ and $a \in A^m$ we write 
+        For $\phi: A \to B $ and $a \in A^m$ we write 
         $\phi(a) = \phi(a_1, \dots, a_m) = (\phi(a_1), \dots, \phi(a_m))$.
         In our projective system we use this notation for $\fall{n}{n+1}$.
     }
@@ -707,33 +709,33 @@
         & \text{ since } a \in V_{n+1}
     \end{align*}
     Hence this forms a projective system with each $V_n$ 
-    finite (since they are respectively subsets of $A_n$).
+    finite (since they are respectively subsets of $\zmo{n}$).
     
-    Claim: $\varprojlim V$ is isomorphic to $\V(I)$
+    Claim: $\varprojlim V$ bijects with $\V(I)$
     via the isomorphism 
-    \[(\Z_p)^m \iso \varprojlim (A_n^m)\]
+    \[(\Z_p)^m \iso \varprojlim (\zmo{n}^m)\]
 
     \begin{align*}
         (a_1, \dots, a_m) \in \V(I) \subs (\Z_p)^m 
         &\iff \forall f \in I, f(a_1, \dots, a_m) = 0 \in \Z_p\\
         &\iff \forall n \in \N, \forall f \in I,  
-        \ep_n(f(a_1, \dots, a_m)) = 0 \in A_n\\
+        \ep_n(f(a_1, \dots, a_m)) = 0 \in \zmo{n}\\
         &\iff \forall n \in \N, \forall f \in I, 
-        \ep_n(f)(\ep_n(a_1), \dots, \ep_n(a_m)) = 0 \in A_n\\
+        \ep_n(f)(\ep_n(a_1), \dots, \ep_n(a_m)) = 0 \in \zmo{n}\\
         &\iff (\ep_n(a_1), \dots, \ep_n(a_m))_{n \in \N} \in  
         \varprojlim V
     \end{align*}
 \end{proof}
 
-\begin{dfn}
+\begin{dfn}[Primitive]
     For $R$ a ring $(a_1, \dots, a_m) \in R^m$ is primitive if
     there exists $i \in \set{1,\dots,m}$ such that $a_i$ is a unit.
-    For the cases $R = A_n$ or $R = \Z_p$, 
+    For the cases $R = \zmo{n}$ or $R = \Z_p$, 
     elements are non-primative if and only if for all 
     $i \in \set{1,\dots,m}$, $a_i \in p R^m$.
 \end{dfn}
 
-\begin{prop}
+\begin{prop}[Vanishings in $\Q_p$, $\Z_p$, and $\zmo{n}$]
     Let $I \subs \Z_p[x_1,\dots, x_m]$ be such that 
     $\forall f \in I, f$ is homogeneous.
     Then the following are equivalent:
@@ -741,7 +743,7 @@
         \item There exists a non-zero $a \in \V(I,\Q_p)$.
         \item There exists a primitive $a \in \V(I,\Z_p)$.
         \item For each $n \in \N$, 
-            there exists a primitive $a \in \V(\ep_n(I),A_n)$.
+            there exists a primitive $a \in \V(\ep_n(I),\zmo{n})$.
     \end{enumerate}
 \end{prop}
 \begin{proof}
@@ -764,14 +766,14 @@
     the degree of $f$.)
 
     We show 2. if and only if 3. by considering the subsets
-    $P(I, \Z_p)$ and $P(\ep_n(I),A_n)$, 
+    $P(I, \Z_p)$ and $P(\ep_n(I),\zmo{n})$, 
     the primitive elements of the vanishings.
-    The $P(\ep_n(I),A_n)$ form a projective system with limit
-    $\varprojlim P(\ep_n(I),A_n) \iso P(I, \Z_p)$ via the same
+    The $P(\ep_n(I),\zmo{n})$ form a projective system with limit
+    $\varprojlim P(\ep_n(I),\zmo{n}) \iso P(I, \Z_p)$ via the same
     isomorphism. 
     Then \linkto{non_empty_projective_limits}{
         $P(I, \Z_p)$ is non-empty if and only if for all $n \in \N$,
-        $P(\ep_n(I),A_n)$ is non-empty.}
+        $P(\ep_n(I),\zmo{n})$ is non-empty.}
 \end{proof}
 
 \begin{prop}[Taylor's theorem]
@@ -814,16 +816,13 @@
     \link{newton}
     Let $f \in \Z_p[x]$, $a \in \Z_p$
     conceptually:
-    Suppose for $f'(a) \le 1$.
+    Suppose $\abs{f'(a)} \le 1$.
     Then there exists $y \in \Z_p$ such that
     \begin{enumerate}
-        \item $\abs{f'(a)(y - a)} \le \abs{f(a)}$
-        \item $\abs{f(y)} \le \frac{\abs{f(a)}}{p}$
-        \item $\abs{f'(y)} = \abs{f'(a)}$
+        \item $\abs{f'(a)(y - a)} \le \abs{f(a)}$  - `$y$ is close to $a$'
+        \item $\abs{f(y)} \le \frac{\abs{f(a)}}{p}$ - `$f(y)$ is much closer to $0$'
+        \item $\abs{f'(y)} = \abs{f'(a)}$ - `derivatives match'
     \end{enumerate}
-    Hence we have $y$ such that it is close to $a$,
-    $f(y)$ is `much' closer to $0$, 
-    and the derivative is the same size.
 
     Elementarily:
     Suppose $b,c \in \Z_p, n, k \in \Z$.
@@ -883,7 +882,7 @@
     $n, k \in \Z$ such that $0 \le 2k < n$ and 
     $f(a) \in p^n \Z_p$
     and there exists $j \in \set{1, \dots, m}$ such that 
-    $v_p (\dbd{f}{x_j}(a)) = k$,
+    $v_p (\del{f}{x_j}(a)) = k$,
     then there exists $y \in (\Z_p)^m$ such that
     \[a - y \in p^{n-k} \Z_p \quad \text{ and } \quad f(y) = 0\]
 \end{prop}
@@ -891,7 +890,7 @@
     Case $m = 1$ and let $f \in \Z_p[x_1]$, 
     $a \in \Z_p, n, k \in \Z$ such that $f(a) \in p^n \Z_p$
     such that 
-    $v_p (\dbd{f}{x_1}(a)) = v_p(f'(a))= k$.
+    $v_p (\del{f}{x_1}(a)) = v_p(f'(a))= k$.
     Let $y_n = a$.
     By induction with \linkto{newton}{Newton's Method} 
     at each step, 
@@ -904,7 +903,7 @@
     so $\abs{y_{l} - y_{l-1}} \le p^{k + 1 - l} \to 0$ 
     as $l \to \infty$.
     Since $\Z_p$ is complete this converges to $y \in \Z_p$.
-    It is clear that $\abs{y - y{l}} \le p^{k-l}$
+    It is clear that $\abs{y - y^{l}} \le p^{k-l}$
     for each $l$. 
     In particular $\abs{y - a} \le p^{k-n}$
     hence $a - y \in p^{n-k}$.
@@ -920,7 +919,7 @@
     $a \in (\Z_p)^m$,
     $n, k \in \Z$ such that $f(a) \in p^n \Z_p$
     and there exists $j \in \set{1, \dots, m}$ such that 
-    $v_p (\dbd{f}{x_j}(a)) = k$.
+    $v_p (\del{f}{x_j}(a)) = k$.
     Then take 
     $f(a_1,\dots, a_{j-1}, x_j, a_{j+1},\dots, a_m) \in \Z_p[x_j]$,
     $f$ with its variables substituted for $a_i$ except for when $i = j$.
@@ -934,7 +933,7 @@
     suppose there exists $c \in (p \Z_p)^m$
     such that $\ep_1(f(c)) = 0$ and 
     there exists a $j \in \set{1,\dots m}$
-    such that $\dbd{f}{x_j}(c) \ne 0$
+    such that $\del{f}{x_j}(c) \ne 0$
     then there exists a $c^* \in (\Z_p)^m$ 
     such that $f(c^*) = 0$ and 
     $\ep_1(c^* - c) = 0$.
@@ -945,10 +944,11 @@
 \end{proof}
 
 \begin{cor}[Quadratic forms for $p \ne 2$]
+    `We only need to find primitive solutions in $\zmo{ }$'.
     Suppose $p \ne 2$, 
     $A \in (p\Z_p)^{n \times n}$
     such that for all 
-    $i,j \in \set{1,\dots,m}, A_{ij} = A_{ji}$
+    $i,j \in \set{1,\dots,m}, A_{ij} = \zmo{ji}$
     and $\det A$ a unit. 
     Let
     \[
@@ -956,23 +956,23 @@
         \sum_{i = 1}^m \sum_{j = 1}^m A_{ij} x_i x_j
         \in \Z_p[x_1,\dots,x_m]
     \]
-    If for any $a \in \Z_p$,
-    there exists primitive $c \in (\Z_p)^m$
+    Let $a \in \Z_p$, 
+    if there exists primitive $c \in (\Z_p)^m$
     such that $ep_1(f(c) - a) = 0$
     then there exists $c^* \in (\Z_p)^m$
-    such that $f(c^*) = 0$ and $\ep_1(c^* - c) = 0$.   
+    such that $f(c^*) = a$ and $\ep_1(c^* - c) = 0$.   
 \end{cor}
 \begin{proof}
     By \linkto{hensel}{Hensel} applied to $g(x) := f(x) - a$
     it suffices to show that
     there exists a $j \in \set{1,\dots, m}$ such that 
-    $\dbd{f}{x_j}(c) \ne 0$.
+    $\del{f}{x_j}(c) \ne 0$.
     Suppose not.
     Then for any $j \in \set{1,\dots, m}$
-    \[0 = \dbd{f}{x_j}(c) = 2 \sum_{i \in S} A_ij c_i\]
+    \[0 = \del{f}{x_j}(c) = 2 \sum_{i \in S} A_{ij} c_i\]
     Since $p \ne 2$ we have that for all $j$
-    \[0 = \sum_{i \in S} \ep_1(A_ij) \ep_1(c_i) = 
-    \ep_1 (A_j) \ep_1(c)\]
+    \[0 = \sum_{i \in S} \ep_1(A_{ij}) \ep_1(c_i) = 
+    \ep_1 (\zmo{j}) \ep_1(c)\]
     Hence \[0 = \ep_1 (A) \ep_1 (c)\]
     Since the determinant of $A$ is a unit,
     the determinant of $\ep_1 (A)$ is a unit
@@ -983,56 +983,58 @@
 \end{proof}
 
 \begin{cor}[Quadratic forms for $\Z_2$]
+    `We only need to find primitive solutions in $\zmo[2]{3}$'.
     Suppose $A \in (2 \Z_2)^{n \times n}$
     such that for all 
-    $i,j \in \set{1,\dots,m}, A_{ij} = A_{ji}$. 
+    $i,j \in \set{1,\dots,m}, A_{ij} = \zmo{ji}$. 
     Let
     \[
         f = x^T A x = 
         \sum_{i = 1}^m \sum_{j = 1}^m A_{ij} x_i x_j
         \in \Z_2[x_1,\dots,x_m]
     \]
-    If for any $a \in \Z_2$,
-    there exists primitive $c \in (\Z_2)^m$
+    Let $a \in \Z_2$.
+    If there exists primitive $c \in (\Z_2)^m$
     such that $ep_3(f(c) - a) = 0$ and
     \[\det(A) \text{ is a unit of } \Z_2 \quad \OR \quad 
-    \exists j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) \ne 0\]
+    \exists j \in \set{1,\dots,m}, \ep_2(\del{f}{x_j}(c)) \ne 0\]
     then there exists $c^* \in (\Z_p)^m$
-    such that $f(c^*) = 0$ and $\ep_1(c^* - c) = 0$.   
+    such that $f(c^*) = a$ and $\ep_1(c^* - c) = 0$.   
 \end{cor}
 \begin{proof}
     We show that 
     \[\det A \text{ is a unit of } \Z_2 \quad \implies \quad 
-    \exists j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) \ne 0\]
+    \exists j \in \set{1,\dots,m}, \ep_2(\del{f}{x_j}(c)) \ne 0\]
     Suppose not.
     \begin{align*}
-        &\quad \forall j \in \set{1,\dots,m}, \ep_2(\dbd{f}{x_j}(c)) = 0\\
+        &\quad \forall j \in \set{1,\dots,m}, \ep_2(\del{f}{x_j}(c)) = 0\\
         &\implies \forall j, \ep_2(2 \sum A_{ij} c_i) = 0\\
         &\implies \forall j, 2 \ep_2(A_j)\ep_2(c) = 0\\
         &\implies 2 \ep_2(A)\ep_2(c) = 0\\
         &\implies 2 \ep_2(c) = 0 \quad \text{since } 
         \det A \text{is a unit}\\
-        &\implies \ep_2(c) = 0 \OR \ep_2(c) = 2
+        &\implies \ep_2(c) = 0 \OR \ep_2(c) = 2\\
         &\implies \ep_1(c) = 0 \quad \text{ a contradiction}
     \end{align*}
-    Hence in either case $\exists j, \ep_2(\dbd{f}{x_j}(c)) \ne 0$
+    Hence in either case $\exists j, \ep_2(\del{f}{x_j}(c)) \ne 0$
     We can then apply \linkto{gen_hensel}{general Hensel} 
     with $n = 3, k < 2, g(x) = f(x) - a$ and obtain $c^*$.
 \end{proof}
 
-\section{Multiplicative group $\Q_p^*$}
+\section{Multiplicative group of p-adic rationals}
 
 \begin{dfn}[$\U_n$]
     For each $n \in \N$
-    the map $\ep_n: \Z_p \to A_n$ is a surjective ring homomorphism,
-    thus makes sense to consider $\ep_n: \Z_p^* \to A_n^*$
+    the map $\ep_n: \Z_p \to \zmo{n}$ is a surjective ring homomorphism,
+    thus makes sense to consider $\ep_n: \Z_p^* \to (\zmo{n})^*$
     the surjective group homomorphism of the unit groups.
     We define the subgroup $\U_n := \ker \ep_n$.
     We can characterise $\U_n = 1 + p^n \Z_p$ because
     \[x \in \U_n \iff \ep_n(x - 1) = 0 \iff x - 1 \in p^n \Z_p\]
-    Note that $\U := \U_0 = \Z_p^*$ and 
-    $\U_0 / \U_1 = \Z_p^* / \ker \ep_1 \iso \F_p^*$
-    hence $\U_0 / \U_1$ is cyclic and of order $p-1$.
+    Note that $\U := \U_0 = \Z_p^*$ since $\Z_p$ is a local ring.
+    Also note that for any $n \in \N$,
+    \[\U / \U_n = \Z_p^* / \ker \ep_n \iso (\zmo{n})^*\]
+    hence $\U / \U_n$ is cyclic and of order $p^n-1$.
 \end{dfn}
 \begin{prop}
     For any $n \in \N$, 
@@ -1040,20 +1042,21 @@
     $\U_{n+1} \to \U_n$ such that 
     \begin{center}
     \begin{tikzcd}
-        A_{n+1}^* \ar[r, "\fall{n}{n+1}"] \ar[d, "\iso"]
-        &A_n^* \ar[d, "\iso"]\\
+        (\zmo{n+1})^* \ar[r, "\fall{n}{n+1}"] \ar[d, "\iso"]
+        &(\zmo{n})^* \ar[d, "\iso"]\\
         \U / \U_{n + 1} \ar[r] &\U / \U_n
     \end{tikzcd}
     \end{center}
-    commutes, since each $A_n^*$ is isomorphic to $\U / \U_n$.
+    commutes, using the isomorphism from the definition above.
     Thus $\U / \U_n$ form a projective system with limit 
-    \[\varprojlim \U / \U_n \iso \varprojlim A_n^* = \U\]
+    \[\varprojlim \U / \U_n \iso \varprojlim (\zmo{n})^* = \U\]
     Without confusion, 
     we label the maps $\U / \U_{n + 1} \to \U / \U_n$
     by $\fall{n}{n+1}$ as well.
 \end{prop}
 
-\begin{prop}
+\begin{prop}[Cardinality trick]
+    \link{cardinality_of_U_m_quotient_U_n}
     For any $n \in \N$ the map $\U_n / \U_{n+1} \to \Z / p\Z$
     sending $\bar{1 + p^n x} \mapsto \ep_1 (x)$ is a group 
     isomorphism.
@@ -1076,7 +1079,7 @@
     Note that this gives us $\abs{\U_n / \U_{n+1}} = p$.
 
     Fix $m$ and induct on $n$. 
-    Assume $\abs{\U_m / \U_n} = = p^{n-m}$.
+    Assume $\abs{\U_m / \U_n} = p^{n-m}$.
     By the third isomorphism:
     \[{\U_m / \U_n} \iso (\U_m / \U_{n+1}) / (\U_n / \U_{n+1})\]
     Hence 
@@ -1089,14 +1092,14 @@
     $0 \to A \to G \to B \to 0 $ 
     is an exact sequence of finite abelian groups.
     $|A|,|B|$ coprime.
-    Then $G \iso A \bigoplus B$ 
+    Then $G \iso A \oplus B$ 
     and there is a unique subgroup of $G$ 
     isomorphic to $B$
     given by the kernel of $b : G \to G := x \to |B| x$.
 \end{prop}
 \begin{proof}
     By injectivity of $f$
-    It suffices to show that $f(A) \bigoplus \ker (b)$
+    It suffices to show that $f(A) \oplus \ker (b)$
     and $\ker(b) \iso B$.
     Since $|A|,|B|$ coprime there exist $\la,\mu \in \N$
     such that $\la |A|+ \mu |B| = 1$.
@@ -1109,9 +1112,9 @@
     Thus
     \[x \in G \implies x = \la |A| x + \mu |B| x\]
     where $\la |A| x \in \ker(b)$ and $\mu |B| x \in f(A)$.
-    Hence $f(A) \bigoplus \ker (b)$.
+    Hence $f(A) \oplus \ker (b)$.
 
-    $\res[g]{\ker(b)}$ is well-defined.
+    $\res{g}{\ker(b)}$ is well-defined.
     It is surjective since $g$ is surjective and anything that 
     maps to $B$ under $g$ will have order dividing $|B|$.
     It is injective because 
@@ -1126,18 +1129,45 @@
     Thus the subgroup isomorphic to $B$.
 \end{proof}
 
-\begin{prop}[$\U = \V \bigoplus \U_1$]
-    $\U = \V \bigoplus \U_1$ where 
-    $\V = \set{x \in \U \st x^{p-1} = 1}$ 
+\begin{prop}
+    \link{limit_of_U_m}
+    $\LIM[n\in\N] \U_m / \U_n \iso \U_m$
+\end{prop}
+\begin{proof}
+    %%%%
+    Idea: let $m \in \N$. 
+    Construct the diagram:
+    \begin{cd}
+        n \le m &&1 \ar[r]  &1            \ar[r]  \ar[d]
+        &\U / \U_m   \ar[r]   \ar[d]&\U / \U_m    \ar[r]   \ar[d]&1 \\
+        m < n   &&1 \ar[r]  &\U_m / \U_n \ar[r]  \ar[d]
+        &\U / \U_n   \ar[r]   \ar[d]&\U / \U_m    \ar[r]   \ar[d]&1 \\
+           &&\vdots \ar[r]  &\vdots \ar[r]  
+           &\vdots   \ar[r]   &\vdots    \ar[r]   &\vdots 
+    \end{cd}
+    where every level is exact.
+    Taking the limit of each part, we obtain
+    \begin{cd}
+        1 \ar[r] & \LIM[n \in \N] \U_m / \U_n& \ar[r]  
+        &\U   \ar[r]   &\U / \U_m    \ar[r]   &1 
+    \end{cd}
+    Which is exact.
+    Hence $\LIM[n \in \N] \U_m / \U_n \iso \U_m$.
+\end{proof}
+
+\begin{prop}[Decomposition of $\U$]
+    \link{decomp_of_U}
+    $\U = \V \oplus \U_1$ where 
+    $\V := \V(\set{x^{p-1} - 1},\Q_p)$ 
     is the unique subgroup of $\U$ isomorphic to $\F^*_p$.
 \end{prop}
-\begin{prop}
+\begin{proof}
     For each $n \in \N$ consider 
     \[1 \to \U_1 / \U_n \to \U / \U_n \to \F_p^* \to 1\]
     where the second map an injection is induced by 
     $\U_1 \subs \U_n$,
-    and the third a surjection by 
-    $\U / \U_n \iso A_n^* \to A_1^* = \F_p^*$.
+    and the third a surjection induced by 
+    $\U / \U_n \iso (\zmo{n})^* \to \zmo{ }^* = \F_p^*$.
 
     Calling the second map $f$ and the third map $g$,
     let $y = \bar{1 + x} \in \U / \U_n$ for $x \in \Z_p$
@@ -1150,19 +1180,22 @@
 
     By the previous proposition there exists $\V_n$
     a unique subgroup of $\U / \U_n$ isomorphic to $\F_p^*$
-    and $\U / \U_n \iso \U_1 / \U_n \bigoplus \F_p^*$.
+    such that $\U / \U_n \iso \U_1 / \U_n \oplus \V_n$ where this 
+    is the isomorphism that commutes with inclusions 
+    $\V_n \subs \U / \U_n $ and 
+    $\U_1 / \U_n \subs \U / \U_n$.
 
     Then the $\V_n$ form a projective system 
     with maps $\V_{n+1} \to \V_n$ induced by 
     the maps $\U / \U_{n+1} \to \U / \U_n$:
     \begin{center}
         \begin{tikzcd}
-            A_{n+1} \ar[r] \ar[dd] 
+            \zmo{n+1} \ar[r] \ar[dd] 
             \arrow[drr, bend left = 70, "\fall{1}{n+1}"]
             &\U/\U_n \ar[rd] \ar[dd] & &
             \V_{n+1} \ar[ld,"\iso",swap] \ar[dd, dashed] \\
             & & \F_p^* \\
-            A_{n} \ar[r] 
+            \zmo{n} \ar[r] 
             \arrow[urr, bend right = 70, "\fall{1}{n}", swap]
             &\U/\U_n \ar[ru] & & 
             \V_{n} \ar[lu,"\iso"] 
@@ -1180,19 +1213,372 @@
     \varprojlim \U / \U_n \iso \U\]
     Furthermore 
     \[\U \iso \varprojlim \U / \U_n 
-    \iso \varprojlim (\U_1 / \U_n \bigoplus \F_p^*)
+    \iso \varprojlim (\U_1 / \U_n \oplus \F_p^*)
     \]
     Since projective limits commute with direct sums %%
     we have that 
-    \[\U \iso \varprojlim (\U_1 / \U_n) \bigoplus \varprojlim \F_p^*
-    \iso \U_1 \bigoplus \F_p^*
+    \[\U \iso \LIM[n \in \N] (\U_1 / \U_n) \oplus \varprojlim \F_p^*
+    \iso \U_1 \oplus \F_p^*
     \]
-    %need to show that projective limit of \U_m / \U_n \iso \U_m
+    using \linkto{limit_of_U_m}{the limit of $\U_1 / \U_n$}.
 
     There are at most $x \in \Z_p$ that satisfy $x^{p-1} = 1$ 
     (by sending the polynomial to $\Q_p$ and using factor theorem).
     There at at least $p - 1$ solutions due to the existence of 
     a subgroup isomorphic to $\F_p^*$ and using Lagrange.
     Hence $\V$ is the unique subgroup isomorphic to $\F_p^*$.
+\end{proof}
+
+\begin{cor}[Multiplicative representatives]
+    $x^{p-1} - 1$ splits in $\Q_p$, 
+    and the roots form the group 
+    $\V = \V(\set{x^{p-1} - 1},\Q_p) \iso \F_p^*$.
+\end{cor}
+
+\section{Structure of the group $\U_1$}
+
+\begin{prop}[Units close to $1$ converge to $1$ 
+    when taking the power]
+    \link{units_converge_to_1}
+    Let $n \in \N$.
+    If $p = 2$ and $2 \le n$ 
+    or if $p \ne 2$ and $1 \le n$ then
+    \[x \in \U_n \setminus \U_{n+1} 
+    \implies x^p \in \U_{n+1} \setminus \U_{n+2} \]
+    Hence by induction if $i \in \N$ then
+    \[x \in \U_n \setminus \U_{n+1} 
+    \implies x^{p^i} \in \U_{n + i} \setminus \U_{n + i + 1} \]
 \end{prop}
+\begin{proof}
+    Let $x \in \U_n$. 
+    We can find $y \in \Z_p$
+    such that $x = 1 + p^n y$.
+    We show that in either case 
+    \[x \in \U_n \implies x^p \in \U_{n+1}\]
+    In either case $1 \le n$.
+    Hence $x^p = 1 + p^{n+1} y + \dots + p^{np} y^p$
+    using the binomial expansion. 
+    After $p^{n+1} y$, the power of $p$ is at least $2n$
+    hence the power is at least $n+1$ since $1 \le n$.
+    Thus $\ep_{n+1} (x^p) = 1$.
+
+    It suffices to show that in both cases
+    $x^p \in \U_{n+2} \implies x \in \U_{n+1}$.
+    Case $p \ne 2$: suppose $x^p \in \U_{n+2}$ then
+    \[1 = 
+    \ep_{n+2} (
+        1 + p^{n+1} y + \binom{p}{2} p^{2n} y^2 
+        + \dots + p^{np}y^p
+        )
+     = 1 + \ep_{n+2}(p^{n+1} y)\]
+    because for the third term 
+    $1 \le n \implies n + 2 \le 2n + 1$
+    which is less than or equal to the power of 
+    $p$ in $\binom{p}{2} p^{2n}$;
+    and after that $1 \le n \implies n + 2 \le 3n$
+    which is less than or equal to the power of $p$.
+    Hence $ep_{n+2}(p^{n+1} y) = 0$ and so $p$ divides $y$
+    hence $x \in \U_{n+1}$.
+
+    Case $p = 2$: suppose $x^p \in \U_{n+2}$ then
+    \[1 = 
+        \ep_{n+2} (
+            1 + 2 \cdot 2^n y + p^{2n} y^2) 
+        = 1 + \ep_{n+2}(p^{n+1} y)\]
+    as $2 \le n \implies n+2 \le 2n$.
+    Once again $p$ divides $y$ hence $x \in \U_{n+1}$.
+\end{proof}
+
+\begin{prop}[Decomposition of $\U_1$]
+    \link{decomp_of_U_1}
+    If $p \ne 2$ then $\U_1 \iso \Z_p$.
+    If $p = 2$ then $\U_1 \iso \<-1\>\oplus \U_2$ 
+    and $\U_2 \iso \Z_2$.
+\end{prop}
+\begin{proof}
+    If $p \ne 2$ then (non-canonically) take 
+    $\al = 1 + p \in \U_1 \setminus \U_2$.
+    Due to the previous proposition, 
+    $\al^{p^{n-1}} \in \U_{n} \setminus \U_{n+1}$
+    and $\al^{p^n} \in \U_{n+1} \setminus \U_{n+2}$.
+    Together with the useful 
+    \linkto{cardinality_of_U_m_quotient_U_n}{cardinality trick}
+    we have that $\abs{\U_1 / \U_{n+1}} = p^n$.
+    Thus $\al^{p^{n-1}} \U_{n+1} \ne 1$
+    and $\al^{p^n} \U_{n+1} = 1$ in $\U_1 / \U_{n+1}$.
+    Hence $\U_1 / \U_{n+1}$ is cyclic with $\al \U_{n+1}$
+    as its generator.
+
+    For each $n \in \N$ we define 
+    \[\phi_{n+1} : \zmo{n} \to \U_1 / \U_{n+1}
+    : = \pi_n(z) \mapsto \al^z \U_{n+1}\]
+    Then we claim that each $\phi_{n+1}$ 
+    is an isomorphism of groups such that the following 
+    commutes 
+    \begin{center}
+        \begin{tikzcd}
+            \dots \ar[r]& 
+            \zmo{n+1} \ar[r] \ar[d,"\phi_{n+2}"]& 
+            \zmo{n} \ar[r] \ar[d,"\phi_{n+1}"]&
+            \dots \ar[r]&
+            0 \ar[d,"\phi_{1}"]\\
+            \dots \ar[r]& 
+            \U_1 / \U_{n+2} \ar[r]& 
+            \U_1 / \U_{n+1} \ar[r]&
+            \dots \ar[r]&
+            0\\
+        \end{tikzcd}
+    \end{center}
+    Each $\phi_{n+1}$ is well defined and injective as 
+    $\pi_n(a - b) = 0$ if and only if $a - b \in p^n \Z$
+    if and only if $\al^{a - b} \in \U_{n+1}$
+    if and only if $\al^{a}\U_{n+1} = \al^{b}\U_{n+1}$
+    if and only if $\phi_{n+1}(a) = \phi_{n+1}(b)$.
+    $\phi_{n+1}$ is surjective since $\phi_{n+1}(1) = \al \U_{n+1}$
+    and $\U_{n+1}$ is cyclic with generator $\al \U_{n+1}$.
+    It is a group morphism as
+    \[\phi_{n+1}(a+b) = \al^{a+b} \U_{n+1}= 
+    \al^{a} \U_{n+1} \al^b \U_{n+1}= 
+    \phi_{n+1}(a)\phi_{n+1}(b)\]
+    It commutes with the diagram since for any $a \in \Z$.
+    \[\phi_{n+1} \fall{n}{n+1} \pi_{n+1}(z) = 
+    \phi_{n+1} \pi_{n}(z) = 
+    (\al \U_{n+1})^z = 
+    \fall{n+1}{n+2}(\al \U_{n+1})^z = 
+    \fall{n+1}{n+2}(\phi_{n+2}(z))\]
+    
+    Taking the limit we obtain
+    \[\Z_p = \LIM{n \in \N} \zmo{n} 
+    \iso \LIM{n \in \N} \iso \U_1\]
+    %%One isomorphism im unsure about
+
+    If $p = 2$ then let 
+    $\al = 5 \in \U_2 \setminus \U_3$.
+    Due to the previous proposition, 
+    $\al^{p^{n-1}} \in \U_{n+1} \setminus \U_{n+2}$
+    and $\al^{p^n} \in \U_{n+2} \setminus \U_{n+3}$.
+    Together with the useful 
+    \linkto{cardinality_of_U_m_quotient_U_n}{cardinality trick}
+    we have that $\abs{\U_2 / \U_{n+2}} = p^n$.
+    Thus $\al^{p^{n-1}} \U_{n+2} \ne 1$
+    and $\al^{p^n} \U_{n+2} = 1$ in $\U_2 / \U_{n+2}$.
+    Hence $\U_2 / \U_{n+2}$ is cyclic with $\al \U_{n+2}$
+    as its generator.
+
+    For each $n \in \N$ we define 
+    \[\phi_{n+2} : \zmo{n} \to \U_2 / \U_{n+2}
+    : = \pi_n(z) \mapsto \al^z \U_{n+2}\]
+    Then we claim that each $\phi_{n+2}$ 
+    is an isomorphism of groups such that the following 
+    commutes 
+    \begin{center}
+        \begin{tikzcd}
+            \dots \ar[r]& 
+            \zmo{n+2} \ar[r] \ar[d,"\phi_{n+3}"]& 
+            \zmo{n+1} \ar[r] \ar[d,"\phi_{n+2}"]&
+            \dots \ar[r]&
+            0 \ar[d,"\phi_{2}"]\\
+            \dots \ar[r]& 
+            \U_2 / \U_{n+3} \ar[r]& 
+            \U_2 / \U_{n+2} \ar[r]&
+            \dots \ar[r]&
+            0\\
+        \end{tikzcd}
+    \end{center}
+
+    Each $\phi_{n+1}$ is a well defined group isomorphism 
+    and commutes with the diagram by similar reasoning as above.
+    
+    Hence 
+    \[\Z_2 \iso \LIM{n \in \N} \U_2 / \U_{n+2} \iso \U_2\]
+    %%one isomorphism im unsure about
+    It remains to show that 
+    $\U_1 \iso \<-1\> \oplus \U_2$.
+    Consider the exact sequence
+    \begin{cd}
+        1 \ar[r]&
+        \U_2 \ar[r, "\subs"]&
+        \U_1 \ar[r, "\ep_2"]&
+        (\zmo[2]{2})^* = \<-1\> \ar[r]&
+        1
+    \end{cd}
+
+    Note that $-1 \notin \U_2 = \ker(\ep_2)$ since it is mapped to 
+    $-1 \ne 1 \in (\zmo{2}{2})^*$.
+    Hence $\U_2 \cap \<-1\> = \<1\>$ in $\U_1$.
+    Furthermore for any $x \in \U_1$,
+    $\ep_2(x) = 1$ or $\ep_2(x) = -1$.
+    Thus $x \in \<1\> + \U_1$.
+    Hence $U_1 \iso \<-1\> \oplus \U_2$.
+\end{proof}
+
+\begin{prop}[Decomposition of $\Q_p^*$]
+    If $p \ne 2$ then $\Q_p^*$ is isomorphic to 
+    $\<p\> \times \V \times \U_1$ under $(\times,\times,\times)$
+    which is isomorphic to 
+    $\Z \oplus \Z / (p - 1)\Z \oplus \Z_p$ under $(+,+,+)$.
+
+    If $p = 2$ then $\Q_p^*$ is isomorphic to 
+    $\<p\> \oplus \<-1\> \oplus \U_2$ under $(\times,\times,\times)$
+    which is isomorphic to 
+    $\Z \oplus \Z / 2\Z \oplus \Z_2$ under $(+,+,+)$.
+\end{prop}
+\begin{proof}
+    In either case there exists a group isomorphism 
+    \[\Q_p^* \iso \<p\> \times \U\]
+    via \linkto{Q_p_non_zero_decomp}{
+        the decomposition of units in $\Q_p$}.
+    (Take the element $p^n u$ to $(p^n, u)$).
+    
+    By 
+    \linkto{decomp_of_U}{the decomposition of $U$}
+    we have
+    \[\Q_p^* \iso \<p\> \times \U \iso 
+    \<p\> \times \V \times \U_1\]
+
+    If $p \ne 2$ then $\V \iso \F_p^* \iso \Z /(p-1)\Z$ 
+    under addition and by
+    \linkto{decomp_of_U_1}{the decomposition of $U_1$}
+    $\U_1 \iso \Z_p$ under addition we have what we want.
+
+    If $p = 2$ then $\V$ is trivial but
+    $\U_1 \iso \<-1\> \times \U_2$.
+    Furthermore, 
+    $\<-1\> \iso \Z / 2 \Z$ and
+    $\U_2 \iso \Z_p$ so we have what we want.
+\end{proof}
+
+\begin{prop}[Sufficient condition for squares in $\Q_p^*$]
+    If $p \ne 2$ then $x = p^n u \in \Q_p^*$ 
+    is a square if and only if
+    $n$ is even and $\legendre{\ep_1(u)}{p} = 1$.
+\end{prop}
+\begin{proof}
+    Take 
+    $x = p^n u \in \Q_p^* \iso \<p\> \times \V \times \U_1$.
+    We can write $u = v u_1$ for some 
+    $v \in \V$ and $u_1 \in \U_1$, then
+    $x$ is square if and only if $p^n$, 
+    $v$ and $u_1$ are all square.
+    We have that $p^n$ is square if and only if $n$ is even.
+    Since $\U_1$ is the kernel of $\ep_1$,
+    $\ep_1(v u_1) = \ep_1(v) \in \F_p^*$.
+    Since \linkto{finding_squares}{the Legendre symbol finds squares}
+    $\ep_1(v)$ is square if and only if $\legendre{\ep_1(v)}{p} = 1$.
+    Lastly \linkto{decomp_of_U_1}{$\U_1 \iso \Z_p$}
+    and $2$ is unit of $\Z_p$ so multiplying by $2$ is a bijection.
+    Thus squaring is a bijection on $\U_1$ and $u_1$ is square.
+\end{proof}
+
+\begin{cor}
+    $\Q_p^* / (\Q_p^*)^2 \iso C_2 \times C_2$.
+\end{cor}
+\begin{proof}
+    \begin{align*}
+        Q_p^* / (\Q_p^*)^2 &\iso 
+    (\<p\> \times \V \times \U_1)/
+    (\<p^2\> \times \ker\legendre{\star}{p} \times \U_1)\\
+    &\iso \<p\> /\<p^2\> \times \V / \ker\legendre{\star}{p} 
+    \times \U_1 / \U_1 \\
+    &\iso  C_2 \times C_2
+    \end{align*}
+\end{proof}
+
+\begin{prop}
+    If $p = 2$ then $(\U_n)^2 = \U_{n+1}$.
+    An element $x = p^n u \in \Q_2^*$ is square if and only if
+    $n$ is even and $\ep_3(u) = 1$.
+\end{prop}
+\begin{proof}
+    Let $a \in \U_n$ and suppose it is is not in $\U_{n+1}$. 
+    By \linkto{units_converge_to_1}{units converge to 1}
+    we have 
+    $a\in \U_{n} \setminus \U_{n+1} \implies 
+    a^2 \in \U_{n+1} \setminus \U_{n+2}$
+    hence $a^2 \in \U_{n+1}$.
+    On the other hand if $a \in \U_{n+1}$ 
+    then clearly its square is in $\U_{n+1}$.
+    Hence $(\U_n)^2 \subs \U_{n+1}$.
+
+    Let $a \in \U_{n+1}$.
+    By \linkto{hensel}{Hensel} we can find 
+    $c^* \in \Z_2$ such that $(c^*)^2 - a = 0$
+    and $\ep_1(c^* - 1) = 0$
+    by considering $f = x^2 - a$ with solution 
+    $c = 1 \in 2 \Z_2$. 
+    (Indeed $\ep_1(f(1)) = 1 - \ep_1(a) = 0$ as $a$ is a unit.)
+    Hence $a = (c^*)^2$ and 
+    $\ep_1(c^* - 1) = 0$ and so $c^* \in \U_2$.
+    Since the $\U_m$ are nested subsets that intersect at a point $1$,
+    $c^* \in \U_m \setminus \U_{m+1}$
+    for $2 \le m \in \N$ or $1 = c^* = a$.
+    By \linkto{units_converge_to_1}{
+        convergenece of units to $1$,}
+    $a = (c^*)^2 \in \U_{m+1} \setminus \U_{m+2}$.
+    Hence $m = n$ so $c^* \in \U_n$.
+    Hence $\U_{n+1} = (\U_n)^2$.
+
+    In particular $\U_{3} = (\U_2)^2$.
+
+    Using the decomposition 
+    $\Q_2^* \iso \<p\> \times \<-1\> \times \U_2$
+    we have that $x$ is square if and only if 
+    $n$ is even and $u$ is square.
+    $-1$ is not square in $\<-1\>$ and so $u$ 
+    is square if and only if it is in $(\U_2)^2$
+    if and only if it is in $\U_3$.
+    This implies $u$ is square 
+    if and only if $\ep_3(u) = 1$.
+\end{proof}
+
+\begin{cor}
+    $\Q_2^* / (\Q_2^*)^2 \iso C_2 \times C_2 \times C_2$.
+\end{cor}
+\begin{proof}
+    \begin{align*}
+        Q_2^* / (\Q_2^*)^2 &\iso 
+    (\<2\> \times \<-1\> \times \U_2)/
+    (\<2^2\> \times \<1\> \times \U_3)\\
+    &\iso \<2\> /\<2^2\> \times \<-1\> / \<1\> 
+    \times \U_2 / \U_3 \\
+    &\iso  C_2 \times C_2 \times C_2
+    \end{align*}
+\end{proof}
+
+\begin{dfn}[Extensions of $\ep, \om$]
+    When $p = 2$ define 
+    \[\ep : \U \to \Z / 2\Z\]
+    \[\om : \U_2 \to \Z / 2\Z\]
+    such that 
+    \[\ep : z \mapsto \ep_1(\frac{z - 1}{2})\]
+    \[\om : z \mapsto \ep_1(\frac{z^2 - 1}{8})\]
+    Note that $\ep$ well defined because
+    $z \in \U \implies z \in 1 + 2 \Z_2 
+    \implies \frac{z - 1}{2}$ is well defined
+    and so $\ep_1(\frac{z - 1}{2})$ is well defined.
+    It is surjective by taking $z = 1$ and $3$.
+    It is a group morphism because 
+    \[\ep((1 + 2a)(1 + 2b)) = \ep_1(\frac{4ab + 2a + 2b}{2}) = 
+    \ep_1({a+b}) = \ep(1 + 2a)+\ep(1 + 2b)\]
+    It has kernel $\U_2$ thus $\U / \U_2 \iso \Z / 2 \Z$.
+
+    Check that $\om$ is well defined, surejective, 
+    has kernel $\U_3$, and is a group morphism.
+    Hence $\U_2 / \U_3 \iso \Z / 2 \Z$.
+
+    Furthermore, the map
+    \begin{align*}
+        \U / \U_3 &\to \Z / 2\Z \times \Z / 2\Z\\
+        z \U_3 &\mapsto (\ep(z), \om(z))
+    \end{align*}
+    is a group isomorphism.
+    It is well defined since the kernels of 
+    $\ep,\om$ contain $\U_3$ and is an isomorphism
+    because if $a \U_3 \in \ker$ then $\om(a) = 0$ and so
+    $a \in \U_3$.
+
+    In particular a unit $u \in \Z_2$ is square if and only if
+    $u \in \U_3$ by the previous proposition. 
+    This is if and only if $\ep(u) = \om(u) = 0$.
+\end{dfn}
 
