@@ -1,0 +1,346 @@
+\begin{dfn}[Quadratic Form, bilinear form]
+    Let $M$ be a module over $A$ a ring.
+    Then $Q : M \to A$ is a quadratic form if
+    \begin{enumerate}
+        \item $\forall a \in A, \forall x \in M, Q(a x) = a^2 Q(x)$
+        \item $\forall x,y \in M,$the map $M^2 \to A$ defined by 
+        $(x,y) \mapsto Q(x + y) - Q(x) - Q(y)$ is bilinear.
+    \end{enumerate}
+    We say $(Q,M)$ is a quadratic module.
+
+    We say $(\star \cdot \star): M^2 \to A$ 
+    is a symmetric bilinear form if 
+    $\forall x, y \in M, 
+    (x \cdot y) = (y \cdot x)$.
+\end{dfn}
+
+\begin{prop}[Correspondence between quadratic forms
+     and symmetric bilinear forms]
+    Let $M$ be an $A$-module.
+    Suppose $2 \in A^*$.
+    \begin{enumerate}
+        \item For any quadratic form $Q : M \to A$ 
+        there exists a symmetric bilinear form 
+        $(\star \cdot \star): M^2 \to A$
+        such that $(x \cdot y) = 
+        \frac{1}{2} (Q(x + y) - Q(x) - Q(y))$.
+        \item For any symmetric bilinear form 
+        $(\star \cdot \star): M^2 \to A$ 
+        there exists a quadratic form $Q : M \to A$ 
+        such that $Q(x) = (x \cdot x)$.
+        \item Going one way and then the other 
+        recovers the same form.
+    \end{enumerate}
+    Note that in fields of characteristic $2$ 
+    this would not work.
+    We refer to $(\star\cdot\star)$ 
+    as the induced symmetric bilinear form of $Q$.
+\end{prop}
+
+\begin{dfn}[Metric morphism]
+    Let $(V,Q),(V',Q')$ be quadratic forms.
+    Then $f : V \to V'$ is a metric morphism if
+    \begin{enumerate}
+        \item $f$ is linear.
+        \item $Q' \circ f = Q$.
+    \end{enumerate}
+    We write $f : (V,Q) \to (V',Q')$ meaning the above.
+\end{dfn}
+
+\begin{prop}[Metric morphisms commute with the bilinear form]
+    Let $(V,Q),(V',Q')$ be quadratic forms and 
+    use $(\star \cdot \star)$,
+    to denote their induced symmetric
+    bilinear forms.
+    If $f : V \to V'$ is a metric morphism then
+    for all $x,y \in V$,
+    $(f(x)\cdot f(y)) = (x \cdot y)$.
+\end{prop}
+\begin{proof}
+    Let $x,y\in V$, then 
+    \begin{align*}
+        &\;(f(x)\cdot f(y)) \\
+        &= \frac{1}{2} (Q'(f(x) + f(y)) - Q'(f(x)) - Q'(f(y)))\\
+        &= \frac{1}{2} (Q(x + y) - Q(x) - Q(y))\\
+        &= (x \cdot y)
+    \end{align*}
+\end{proof}
+
+\begin{prop}[Matrix of a quadratic form]
+    \begin{enumerate}
+        Suppose $(Q,V)$ is a quadratic module over field $K$
+        with finite dimension $n$. 
+        Take $B$ a basis of $V$.
+        \item For any $x \in V$, 
+        writing $x_B = \sum_{i = 1}^n x_i e_i$
+        gives us 
+        \[Q(x) = 
+        \sum_{i = 1}^n \sum_{j = 1}^n (e_i \cdot e_j) x_i x_j\]
+        \item There exists a unique matrix
+        given by
+        $T_B = (e_i \cdot e_j)_{i,j = 1}^n \in K^{n\times n}$ 
+        such that $Q(x) = x_B^T T_B x_B$.
+        \item The matrix $T_B$ is symmetric;
+        we call it the matrix of the quadratic form $Q$
+        with respect to basis $B$.
+
+        \item Given another basis $C$ of $V$ and a change of basis matrix
+        $X : K^{n \times n} \to K^{n \times n}$ 
+        taking basis $B$ to $C$, we have
+        \[T_B = X^T T_C X\]
+        Thus $\det (T_B) = \det (X)^2 \det (T_C)$.
+        Hence the determinant is determined up 
+        to multiplication by a square.
+        \item If $x, y \in V$ then $x \cdot y = x_B^T T_B y_B$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+    \begin{align*}
+        Q(x) &= Q(\sum_{i = 1}^n x_i e_i) \\
+        &= \brkt{\sum_{i = 1}^n x_i e_i} 
+        \cdot \brkt{\sum_{i = 1}^n x_i e_i}\\
+        &= \sum_{i = 1}^n \brkt{x_i (e_i 
+        \cdot \sum_{j = 1}^n x_j e_j)}\\
+        &= \sum_{i = 1}^n \sum_{j = 1}^n 
+        \brkt{x_j x_i (e_i \cdot e_j)}\\
+        &= \sum_{i = 1}^n \sum_{j = 1}^n 
+        (e_i \cdot e_j) x_i x_j\\
+        &= \sum_{i = 1}^n \sum_{j = 1}^n 
+        (T_B)_{ij} x_i x_j\\
+        &= x_B^T T_B x_B
+    \end{align*}
+    Uniqueness of $T_B$ follows from the fact that if
+    $T'$ were a matrix satisfying the above then 
+    it would agree on each $T'_{ij}$, 
+    hence determining the same matrix.
+    Checking that $T_B$ is symmetric follows from 
+    $(\star\cdot\star)$ being symmetric.
+
+    Let $C$ be another basis of $V$ 
+    $X$ be the change of basis matrix 
+    from $B$ to $C$.
+    Then for any $x \in V$,
+    \[x_B^T X^T T_C X x_B = (X x_b)^T T_C (X x_b) = Q(X x_b)\]
+    By the definition of $T_C$.
+    Hence by uniqueness of $T_B$ in satisfying this property
+    $X^T T_C X = T_B$.
+
+    Let $x,y \in V$ then 
+    \begin{align*}
+        x \cdot y &= \frac{1}{2} \brkt{Q(x + y) - Q(x) - Q(y)} \\
+        &=\frac{1}{2} (x_B^T T_B y_B + y_B^T T_B x_B)\\
+        &=\frac{1}{2} (x_B^T T_B y_B + x_B^T T_B^T y_B) \\
+        &=x_B^T T_B y_B
+    \end{align*}
+    The third equality is because it is a $1 \times 1$ matrix,
+    the fourth using the fact that $T_B$ is symmetric.
+\end{proof}
+
+\begin{dfn}[Discriminant]
+    Suppose $(Q,V)$ is a finite dimensional
+    quadratic module over field $K$. 
+    Let $B$ be a basis of $V$ and $T_B$ 
+    be the matrix of $Q$ with respect to $B$.
+    If $\det(T_B) \ne 0$
+    define
+    \[\disc(Q):= \det(T_B) (K^*)^2 \quad \in K^* / (K^*)^2\]
+    Otherwise $\disc(Q) = 0$.
+    This is well defined due to the previous theorem.
+\end{dfn}
+
+\begin{dfn}[Orthogonal complement]
+    Suppose $(Q,V)$ is a finite dimensional 
+    quadratic module over field $K$. 
+    If $x,y \in V$ and $x \cdot y = 0$ then we say $x,y$ are orthogonal.
+    For $U \subs V$, 
+    \[U^\bot := \{x \in V \st \forall h \in U, x \cdot h = 0\}\]
+    This is a subspace.
+    If $W \subs V$ then we say $W,U$ are orthogonal if $W \subs U^\bot$.
+    This is if and only if $U \subs W^\bot$.
+    Define $\rad{U} = U \cap U^\bot$.
+\end{dfn}
+
+\begin{prop}[Degenerate $Q$]
+    Suppose $(Q,V)$ is a quadratic module over field $K$
+    with finite dimension.
+    We say $Q$ is degenerate over $V$ when $\disc(Q) = 0$.
+    This holds if and only if $\rad(V) \ne \set{0}$.
+\end{prop}
+\begin{proof}
+    Let $B$ be a basis of $V$.
+    \begin{align*}
+        \disc(Q) = 0 &\iff \det (T_B) = 0 \\
+        &\iff \exists x \in V \setminus \set{0}, T_B x_B = 0\\
+        &\iff \exists x \in V \setminus \set{0}, 
+        \forall y \in V, y_B^T T_B x_B = 0\\
+        &\iff \exists x \in V \setminus \set{0}, 
+        \forall y \in V, x \cdot y = 0\\
+        &\iff V^\bot \ne \set{0}
+    \end{align*}
+\end{proof}
+\begin{dfn}[Dual Space]
+    Suppose $(Q,V)$ is a finite dimensional 
+    quadratic module over field $K$.
+    Let $U$ be a subspace of $V$.
+    Define 
+    \[\dual{U} := \set{\dual{u} : U \to K \st 
+    \dual{u}\text{ linear}}\]
+    For any linear $T : U \to W$ define 
+    \[\dual{T} : \dual{U} \to \dual{W} : = \star \circ T\]
+
+    Define $q_U : V \to \dual{U}$ by $x \to (x \cdot \star)$.
+    Check that $q_U$ is linear and has kernel $U^\bot$.
+    Check that $q_U = \fall{U}{V} q_V$ is the canonical surjection
+    from $\dual{V}$ to $\dual{U}$.
+    Thus by the previous proposition 
+    $Q$ is non-degenerate over $V$ if and only if $q_V$ is injective
+    if and only if $q_V$ is an isomorphism.
+    (The dimension of $\dual{V}$ is equal to that of $V$.)
+\end{dfn}
+
+\begin{dfn}[Orthogonal direct sum]
+    Suppose $(Q,V)$ is a quadratic module over field $K$
+    with finite dimension.
+    Suppose $\set{U_i}_{i \le m}$ be subspaces of $V$,
+    pairwise orthogonal and whose direct sum is $V$.
+    Then define $Q_i$ as $Q$ restricted to $U_i$.
+    If $x = \sum_{i\le m} x_i u_i \in V$ then 
+    \[Q(x) = \brkt{\sum_{i\le m} x_i u_i} 
+    \cdot \brkt{\sum_{j\le m} x_j u_j} = 
+    \sum_{i\le m} x_i^2 (u_i \cdot u_i)
+    = \sum_{i\le m} Q_i(x_i)\]
+
+    Conversely, 
+    suppose $\set{(Q_i, U_i)}_{i \le m}$ are finite dimensional 
+    quadratic modules over $K$. 
+    Then there exists a unique quadratic form 
+    $Q : \bigoplus_{i \le m} \to K$ 
+    that agree with each $Q_i$ upon restriction.
+    It is given by the related bilinear map 
+    \[(\star\cdot\star) : 
+    \brkt{\sum_{i\le m} x_i u_i,\sum_{i\le m} y_i u_i}
+    \mapsto \sum_{i\le m} x_i y_i \Q_i(u_i)\]
+
+    We write $\bigohat U_i$ to mean the orthogonal direct sum of $U_i$.
+\end{dfn}
+
+\begin{dfn}
+    If a space is the sum of 
+\end{dfn}
+
+\begin{prop}
+    If $(V,Q)$ is a non-degenerate finite dimensional 
+    quadratic module over a field $K$.
+    Then 
+    \begin{enumerate}
+        \item All metric functions from $(V,Q)$
+            are injective.
+        \item For any subspace $U$, 
+            \[U^{\bot\bot} = U ,
+            \quad \dim U + \dim U^\bot  = \dim V\]
+        \item For any subsace $U$, 
+            $U$ non-degenerate if and only if $U^\bot$ 
+            is non-degenerate.
+        \item If a subspace $U$ is non-degenerate then
+            $V = U \ohat U^\bot$.
+        \item If $V = U \oplus U^\bot$ then 
+            $U$ and $U^\bot$ are orthogonal 
+            and non-degenerate.
+    \end{enumerate}
+\end{prop}
+\begin{proof}~
+    \begin{enumerate}
+        \item Let $f$ be a metric function out of $V$.
+            Then let $x \in \ker(f)$.
+            \[\forall y \in V, x \cdot y = f(x) \cdot f(y) = 0\]
+            Hence $x = 0$ as $V$ is non-degenerate.
+        \item Let $U \le V$.
+            Clearly $U \subs U^{\bot\bot}$.
+            Suffices to show that they have the same dimension.
+            We construct an exact sequence
+            \begin{cd}
+                0 \ar[r]&
+                U^\bot \ar[r, "\subs"]&
+                V \ar[r, "p_U"]&
+                \dual{U} \ar[r]&
+                0
+            \end{cd}
+            Note that $q_U = \fall{U}{V} q_V$ is surjective because
+            $V$ is non-degenerate tells us $q_V$ is bijective.
+
+            Hence by rank-nullity we have 
+            \[\dim V = \dim U^\bot + \dim \dual{U} = 
+            \dim U^\bot + \dim U\]
+            
+            Applying the above result to $U^\bot$ gives us
+            \[\dim V = \dim U^{\bot\bot} \dim U^\bot\]
+            Hence $\dim U = \dim U^{\bot\bot}$
+            and $U = U^{\bot\bot}$.
+        \item For any subsace $U$, 
+            $U$ non-degenerate if and only if 
+            $U \cap U^\bot = \rad(U) = \set{0}$ 
+            if and only if 
+            $U^\bot \cap U^{\bot\bot} = \rad(U^\bot) = \set{0}$
+            if and only if $\U^\bot$
+            is non-degenerate.
+        \item If a subspace $U$ is non-degenerate then
+            as remarked $U \cap U^\bot$ and 
+            $\dim U + \dim U^\bot = V$ 
+            hence 
+            $V = U \ohat U^\bot$.
+        \item If $V = U \oplus U^\bot$ then 
+            $U \cap U^\bot$ thus
+            $U$ and $U^\bot$ are non-degenerate.
+            Naturally they are orthogonal.
+    \end{enumerate}
+\end{proof}
+
+\begin{dfn}
+    Let $(V,Q)$ be a finite dimensional 
+    quadratic module over a field $K$.
+    An element $x \in V$ is isotropic with respect to $Q$
+    if $Q(x) = 0$
+    A subspace $U$ of $V$ is isotropic with respect to $Q$
+    if for all $x \in U$, $Q(x) = 0$.
+    This is equivalent to $U \subs U^\bot$ 
+    since $U$ is closed under $+$.
+\end{dfn}
+
+\begin{dfn}[Hyperbolic plane]
+    We say a quadratic module is a hyperbolic plane if
+    it has a basis $\set{x,y}$ 
+    formed of two isotropic elements such that
+    $x \cdot y \ne 0$.
+
+    Without loss of generality $x \cdot y = 1$ 
+    (by replacing $y$ with $\frac{1}{x \cdot y} y$).
+    Hence we compute 
+    \[T_B = \begin{matrix}
+        0 & 1 \\
+        1 & 0
+    \end{matrix}\]
+    Hence 
+    $\disc(Q) = - 1 (K^*)^2 \ne 0$.
+\end{dfn}
+
+\begin{prop}[Hyperbolic plane for non-degenerate quadratic modules]
+    If $(V,Q)$ is a finite dimentional 
+    non-degenerate quadratic module over a field $K$
+    of characteristic not $2$.
+    and there exists an isotropic $ x \in V, x \ne 0 $
+    then there is $U \le V$ a hyperbolic plane containing $x$.
+    Furthermore, 
+    this implies $Q$ is surjective.
+\end{prop}
+\begin{proof}
+    $V$ is non-degenerate thus $V^\bot = \set{0}$.
+    Thus $x \notin V^\bot$ and so there exists $z \in V$
+    such that (without loss of generality) $x \cdot z = 1$.
+    Let $y := 2z - (z \cdot z) x$ and we find that $y$ is isotropic
+    whilst $x \cdot y = 2$.
+    Take $U = K x + K y$.
+
+    Let $a \in K$.
+    Then we can calculate $a = Q(x + \frac{a}{4} y)$. 
+\end{proof}
+

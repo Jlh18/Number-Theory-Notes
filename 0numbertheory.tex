@@ -13,15 +13,19 @@
 \usepackage{perpage}
 \usepackage{parskip} % So that paragraphs look nice
 \usepackage{ifthen,xargs} % For defining better commands
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{tgpagella}
-\usepackage{cancel}
+\usepackage[T1]{fontenc} %font
+\usepackage[utf8]{inputenc} %font
+\usepackage{tgpagella} %font
+\usepackage{cancel} %\strikes through stuff
 
 % Shortcuts
 
 % % Local Shortcuts
 \newcommand{\zmo}[2][p]{\Z/#1^{#2}\Z}
+\newcommand{\dual}[1]{#1^\diamond}
+\newcommand{\rad}{\mathrm{rad }}
+\newcommand{\ohat}{\hat{\oplus}}
+\newcommand{\bigohat}{\hat{\bigoplus}}
 
 % % Misc
 \newcommand{\brkt}[1]{\left(#1\right)}
@@ -172,6 +176,7 @@
 
 % % Number Theory
 \newcommand{\legendre}[2]{\brkt{\frac{#1}{#2}}}
+\newcommand{\disc}{\mathrm{disc}}
 
 %% code from mathabx.sty and mathabx.dcl to get some symbols from mathabx
 \DeclareFontFamily{U}{mathx}{\hyphenchar\font45}
@@ -367,7 +372,8 @@
 \tableofcontents
 
 
-\input{Chapter1}
-\input{Chapter2}
+%\input{Chapter1}
+%\input{Chapter2}
+\input{Chapter4}
 
 \end{document}
